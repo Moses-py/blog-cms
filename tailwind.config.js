@@ -16,5 +16,8 @@ export const theme = {
       "2xl": "1400px",
     },
   },
+  colors: {
+    primary: "#6246EA",
+  },
 };
 export const plugins = [require("flowbite/plugin")];

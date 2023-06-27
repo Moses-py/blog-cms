@@ -1,8 +1,10 @@
 import Navbar from "@/features/navbar/Navbar";
 import "./globals.css";
-import { Quicksand } from "next/font/google";
+import { Quicksand, Plus_Jakarta_Sans } from "next/font/google";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const quicksand = Quicksand({
+const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
 });
 
@@ -17,7 +19,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={quicksand.className}>
+      <body className={plus_jakarta_sans.className}>
+        <ToastContainer
+          position="top-center"
+          autoClose={500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         <Navbar />
         {children}
       </body>

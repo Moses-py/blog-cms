@@ -1,41 +1,11 @@
 export const form_data = [
   {
-    label: "Author",
-    description: "Who is the author of this post?",
-    placeholder: "Name the author",
-    type: "text",
-    name: "author",
-  },
-  {
-    label: "Date of post",
-    description:
-      "What is the published date you would like to show for this post?",
-
-    placeholder: "Date of post",
-    type: "date",
-    name: "date",
-  },
-  {
     label: "Title",
     description: "What is the title of your post?",
     placeholder: "Name the title of your post",
     type: "text",
     name: "title",
-  },
-  {
-    label: "Summary",
-    description: "Give a short summary of your post",
-    placeholder: "Summarize your post",
-    type: "text",
-    name: "summary",
-  },
-  {
-    label: "Tag line",
-    description: "Do you have a subtitle or a tag line for your post?",
-
-    placeholder: "Subtitle or tagline",
-    type: "text",
-    name: "tag",
+    required: true,
   },
   {
     label: "Slug",
@@ -45,6 +15,7 @@ export const form_data = [
     placeholder: "Slug e.g post-1",
     type: "text",
     name: "slug",
+    required: true,
   },
   {
     label: "Cover image",
@@ -52,5 +23,17 @@ export const form_data = [
     placeholder: "Select an image",
     type: "file",
     name: "cover",
+    required: false,
   },
+];
+
+export const blog_category = [
+  "",
+  "Technology",
+  "Art",
+  "Finance",
+  "Games",
+  "Internet",
+  "Clothing",
+  "Wildlife",
 ];
