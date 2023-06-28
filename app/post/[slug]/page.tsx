@@ -8,14 +8,16 @@ import { useEffectOnce } from "usehooks-ts";
 import CatCard from "@/components/category_card/CatCard";
 import { category_listing } from "@/mocks/mocks";
 import Link from "next/link";
+import PaystackModal from "@/components/modal/PaystackModal";
 
 export const dynamicParams = false; // true | false,
 
 const SinglePost = ({ params }: { params: { slug: string } }) => {
   const [data, setData] = useState<BlogList>();
-  const [blog_data, get_blog_data] = useBlogStore((state) => [
+  const [blog_data, get_blog_data, modal] = useBlogStore((state) => [
     state.blog_data,
     state.get_blog_data,
+    state.modal,
   ]);
   useEffectOnce(() => {
     get_blog_data();
@@ -151,6 +153,7 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
           })}
         </div>
       </section>
+      {modal && <PaystackModal />}
     </>
   );
 };

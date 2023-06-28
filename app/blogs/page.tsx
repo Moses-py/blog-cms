@@ -2,14 +2,16 @@
 import ArtCard from "@/components/article_card/ArtCard";
 import CatCard from "@/components/category_card/CatCard";
 import Loader from "@/components/loaders/Loader";
+import PaystackModal from "@/components/modal/PaystackModal";
 import { category_listing } from "@/mocks/mocks";
 import { useBlogStore } from "@/store/Blogstrore";
 import { useEffectOnce } from "usehooks-ts";
 
 const Blogs = () => {
-  const [blog_data, get_blog_data] = useBlogStore((state) => [
+  const [blog_data, get_blog_data, modal] = useBlogStore((state) => [
     state.blog_data,
     state.get_blog_data,
+    state.modal,
   ]);
   useEffectOnce(() => {
     get_blog_data();
@@ -71,6 +73,7 @@ const Blogs = () => {
           </div>
         </section>
       </section>
+      {modal && <PaystackModal />}
     </>
   );
 };
