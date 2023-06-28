@@ -35,6 +35,7 @@ const Blogs = () => {
                         title={data.title}
                         summary={data.summary}
                         slug={data.slug}
+                        minutes={data.minutes}
                       />
                     );
                   })}

@@ -10,14 +10,6 @@ import { useEffectOnce } from "usehooks-ts";
 
 export const dynamicParams = false; // true | false,
 
-export async function generateStaticParams() {
-  const paths = await getBlogData();
-
-  return paths?.map((path) => ({
-    slug: path.category,
-  }));
-}
-
 const CategoryList = ({ params }: { params: { slug: string } }) => {
   const [data, setData] = useState<BlogList[]>();
   const [blog_data, get_blog_data] = useBlogStore((state) => [
