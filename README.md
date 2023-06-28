@@ -1,34 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+flai-r.blog
+flai-r.blog
 
-## Getting Started
+flai-r.blog is a blog application built with Next.js and Appwrite database. It provides a platform for users to create, read, update, and delete blog posts. The application utilizes the power of Next.js for server-side rendering, dynamic routing, and seamless user experiences, while leveraging Appwrite's database for storing and retrieving blog data.
 
-First, run the development server:
+Features
+User Authentication: Admin user to log in to perform CRUD operations on blog articles using a custom admin portal.
+Rich Text Editor: The application utilizes a rich text editor for creating and editing blog post content, allowing users to format text, add images, and style their posts.
+Responsive Design: The blog is designed to be fully responsive, ensuring optimal viewing experiences across different devices and screen sizes.
+SEO-friendly: The application is optimized for search engines, providing metadata, proper tags, and structured data to enhance discoverability.
+Technologies Used
+Next.js: A React framework for building server-side rendered applications.
+Appwrite: An open-source backend server that provides authentication, database, and storage functionalities.
+Tailwind CSS: A utility-first CSS framework for rapid and flexible UI development.
+React Quill: A React-based rich text editor component for creating and editing blog post content.
+Git: Version control system for tracking changes and collaborating with other developers.
+Getting Started
+To get started with flai-r.blog, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Clone the repository: git clone https://github.com/moses-py/blog-cms.git
+Navigate to the project directory: cd blog-cms
+Install dependencies: npm install
+Configure Appwrite: Set up an Appwrite backend server and configure the necessary environment variables for authentication and database connectivity.
+Start the development server: npm run dev
+Open your browser and visit: http://localhost:3000
+Contributing
+Contributions to flai-r.blog are welcome! If you find any bugs, have suggestions for improvements, or want to add new features, feel free to open issues and submit pull requests. Make sure to follow the project's code of conduct.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+License
+This project is licensed under the MIT License.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Acknowledgements
+Next.js documentation: https://nextjs.org/docs
+Appwrite documentation: https://appwrite.io/docs
+Tailwind CSS documentation: https://tailwindcss.com/docs
+React Quill documentation: https://github.com/zenoamaro/react-quill
