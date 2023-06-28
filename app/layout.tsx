@@ -1,3 +1,4 @@
+"use client";
 import Navbar from "@/features/navbar/Navbar";
 import "./globals.css";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
