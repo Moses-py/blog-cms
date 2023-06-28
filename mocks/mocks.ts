@@ -8,6 +8,14 @@ export const form_data = [
     required: true,
   },
   {
+    label: "Summary",
+    description: "Summarize your post",
+    placeholder: "Give a short summary",
+    type: "text",
+    name: "summary",
+    required: true,
+  },
+  {
     label: "Slug",
     description:
       "Select a slug for this blog post, such as post-1, post-2, etc.",
@@ -28,12 +36,21 @@ export const form_data = [
 ];
 
 export const blog_category = [
-  "",
   "Technology",
-  "Art",
-  "Finance",
   "Games",
-  "Internet",
-  "Clothing",
+  "Anime",
+  "Sports",
+  "Travel",
   "Wildlife",
+  "Foods",
+];
+
+export const category_listing = [
+  { name: "Technology", image: "tech" },
+  { name: "Games", image: "games" },
+  { name: "Anime", image: "anime" },
+  { name: "Sports", image: "sports" },
+  { name: "Travel", image: "travel" },
+  { name: "Wildlife", image: "wildlife" },
+  { name: "Foods", image: "foods" },
 ];

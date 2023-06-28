@@ -1,3 +1,4 @@
+"use client";
 import { Timeline } from "flowbite-react";
 
 const Input = ({

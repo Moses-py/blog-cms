@@ -1,7 +1,8 @@
+"use client";
 import Link from "next/link";
 const Navbar = () => {
   return (
-    <nav className="p-4 divide-x divide-gray-300">
+    <nav className="p-5 divide-x divide-gray-300 font-sans">
       <div className="md:container flex justify-between items-center">
         <div className="">
           <h1 className="divide-x font-sans font-bold text-[#001858] text-3xl inline">
@@ -10,7 +11,7 @@ const Navbar = () => {
           <span>.</span>
           <span className="text-primary font-bold text-sm">Blog</span>
         </div>
-        <ul className="hidden sm:flex justify-between items-center gap-6 text-xs font-semibold text-gray-600">
+        <ul className="hidden sm:flex justify-between items-center gap-6 text-[14px] font-semibold text-gray-600">
           <li>
             <Link href={"/"}>Home</Link>
           </li>

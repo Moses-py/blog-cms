@@ -27,11 +27,12 @@ interface Image {
   fileId: string;
 }
 
-type BLogList = {
+type BlogList = {
   slug: string;
   content: string;
-  image?: Image;
+  image?: URL;
   category: string;
   date: string;
   title: string;
+  summary: string;
 };

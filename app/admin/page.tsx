@@ -24,7 +24,7 @@ export default function Admin() {
   const [content, setContent] = useState("");
   const [file, setFile] = useState<File | undefined>();
   const [loading, setLoading] = useState(false);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Technology");
 
   const { register, handleSubmit } = useForm();
 
