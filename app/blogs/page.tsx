@@ -1,24 +1,31 @@
 "use client";
 import ArtCard from "@/components/article_card/ArtCard";
+import CatCard from "@/components/category_card/CatCard";
 import Loader from "@/components/loaders/Loader";
+import { category_listing } from "@/mocks/mocks";
 import { useBlogStore } from "@/store/Blogstrore";
-import React from "react";
+import { useEffectOnce } from "usehooks-ts";
 
-const RecentArticles = () => {
-  const [blog_data] = useBlogStore((state) => [state.blog_data]);
-  const newest_articles = blog_data.slice(0, 6);
+const Blogs = () => {
+  const [blog_data, get_blog_data] = useBlogStore((state) => [
+    state.blog_data,
+    state.get_blog_data,
+  ]);
+  useEffectOnce(() => {
+    get_blog_data();
+  });
   return (
     <>
       <section className="w-full" id="recents">
         <div className="md:container p-3">
           <h1 className="font-serif text-[28px] lg:text-[30px] xl:text-[32px] font-bold my-[2rem] leading-tight">
-            Recent articles
+            All Posts
           </h1>
           <div className="grid w-full">
-            {newest_articles.length > 0 ? (
+            {blog_data.length > 0 ? (
               <>
                 <div className=" w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-[1rem]">
-                  {newest_articles.map((data, index) => {
+                  {blog_data.map((data, index) => {
                     return (
                       <ArtCard
                         key={index}
@@ -43,9 +50,28 @@ const RecentArticles = () => {
             {/* List of Articles */}
           </div>
         </div>
+        <section
+          id="categories"
+          className="container mx-auto my-[3rem] md:my-[8rem] px-5 w-full"
+        >
+          <h1 className="font-serif text-[28px] lg:text-[30px] xl:text-[32px] font-bold my-[2rem] leading-tight">
+            Explore categories
+          </h1>
+          <div className="w-full flex gap-2 items-center overflow-x-auto overflow-y-hidden">
+            {category_listing.map((category, index) => {
+              return (
+                <CatCard
+                  key={index}
+                  name={category.name}
+                  image={category.image}
+                />
+              );
+            })}
+          </div>
+        </section>
       </section>
     </>
   );
 };
 
-export default RecentArticles;
+export default Blogs;

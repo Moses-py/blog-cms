@@ -1,10 +1,10 @@
 "use client";
 import { useBlogStore } from "@/store/Blogstrore";
+import Link from "next/link";
 
 const Hero = () => {
   const [blog_data] = useBlogStore((state) => [state.blog_data]);
   const single_data = blog_data[0];
-  console.log(single_data.image?.href);
 
   return (
     <>
@@ -28,7 +28,7 @@ const Hero = () => {
                 Moses Chukwunekwu | {single_data.date}
               </p>
               <button className="px-[10px] py-[8px] bg-black text-white w-fit">
-                Read more
+                <Link href={`/post/${single_data.slug}`}>Read more</Link>
               </button>
             </div>
           </div>
