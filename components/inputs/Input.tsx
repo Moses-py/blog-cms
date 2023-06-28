@@ -1,4 +1,6 @@
+"use client";
 import { Timeline } from "flowbite-react";
+
 const Input = ({
   label,
   description,
@@ -7,6 +9,7 @@ const Input = ({
   register,
   name,
   onchange,
+  required,
 }: Input) => {
   return (
     <>
@@ -26,7 +29,7 @@ const Input = ({
             </label>
             <input
               type={type}
-              {...(register && register(name))}
+              {...(register && register(name, { required: required }))}
               className="block border-gray-300 border w-full placeholder:text-xs placeholder:text-gray-300 text-xs"
               placeholder={placeholder}
               onChange={onchange}

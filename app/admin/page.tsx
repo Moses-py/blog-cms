@@ -1,48 +1,76 @@
 "use client";
 
-import Input from "@/components/inputs/Input";
-import { Timeline } from "flowbite-react";
+// Library imports
+import { Label, Select, Timeline } from "flowbite-react";
 import { useState } from "react";
-
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import { formats, modules } from "@/lib/utils";
-import { form_data } from "@/mocks/mocks";
-
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import { uploadImage } from "@/lib/uploadImage";
 import { ID, database } from "@/appwrite";
+import { toast } from "react-toastify";
+
+// Style imports
+import "react-quill/dist/quill.snow.css";
+
+// Util imports
+import { formats, modules } from "@/lib/utils";
+import { blog_category, form_data } from "@/mocks/mocks";
+import { uploadImage } from "@/lib/uploadImage";
+import formatDate from "@/lib/getCurrentDate";
+
+// Component imports
+import Input from "@/components/inputs/Input";
 
 export default function Admin() {
-  const [value, setValue] = useState("");
+  const [content, setContent] = useState("");
   const [file, setFile] = useState<File | undefined>();
+  const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState("Technology");
 
   const { register, handleSubmit } = useForm();
 
   const submitData: SubmitHandler<FieldValues> = async (data: FieldValues) => {
-    let image: Image | undefined;
-    const fileUpload = await uploadImage(file);
+    if (content !== "") {
+      setLoading(true);
+      setContent("");
+      setCategory("");
+      toast("Adding Post");
+      try {
+        let image: Image | undefined;
+        const fileUpload = await uploadImage(file);
 
-    if (fileUpload) {
-      image = {
-        bucketId: fileUpload.bucketId,
-        fileId: fileUpload.$id,
-      };
+        if (fileUpload) {
+          image = {
+            bucketId: fileUpload.bucketId,
+            fileId: fileUpload.$id,
+          };
+        }
+
+        const parse_data = {
+          ...data,
+          content: content,
+          category: category,
+          date: formatDate(new Date()),
+          ...(image && { image: JSON.stringify(image) }),
+        };
+
+        const { $id } = await database.createDocument(
+          process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
+          process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID!,
+          ID.unique(),
+          { ...parse_data }
+        );
+
+        if ($id) {
+          setFile(undefined);
+          setLoading(false);
+          toast("Post successfully added");
+        }
+      } catch (error) {
+        setLoading(false);
+      }
+    } else {
+      toast("Your post needs a content");
     }
-    const parse_data = {
-      ...data,
-      content: value,
-      ...(image && { image: JSON.stringify(image) }),
-    };
-
-    const { $id } = await database.createDocument(
-      process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
-      process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID!,
-      ID.unique(),
-      { ...parse_data }
-    );
-
-    console.log($id);
   };
 
   return (
@@ -55,7 +83,7 @@ export default function Admin() {
               type="submit"
               className="py-2 px-5 text-white bg-blue-600 hover:bg-blue-500 rounded-md"
             >
-              Save
+              {loading ? "Loading..." : "Save"}
             </button>
           </div>
 
@@ -77,18 +105,56 @@ export default function Admin() {
                 );
               } else {
                 return (
-                  <Input
-                    label={data.label}
-                    description={data.description}
-                    placeholder={data.placeholder}
-                    type={data.type}
-                    key={index}
-                    register={register}
-                    name={data.name}
-                  />
+                  <>
+                    <Input
+                      label={data.label}
+                      description={data.description}
+                      placeholder={data.placeholder}
+                      type={data.type}
+                      key={index}
+                      register={register}
+                      name={data.name}
+                      required={data.required}
+                    />
+                  </>
                 );
               }
             })}
+            <Timeline.Item>
+              <Timeline.Point />
+              <Timeline.Content>
+                <div className="max-w-full" id="select">
+                  <div className="mb-2 flex flex-col gap-3">
+                    <Label
+                      htmlFor="category"
+                      className="text-md font-sans font-normal"
+                      value="Choose a category"
+                    />
+                    <Label
+                      htmlFor="category_description"
+                      className="text-xs text-gray-400 font-sans"
+                      value="What category does you post most aligns with?"
+                    />
+                  </div>
+                  <Select
+                    id="category"
+                    required
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="rounded-none"
+                  >
+                    {blog_category.map((category, index) => {
+                      return (
+                        <option className="bg-white" key={index}>
+                          {category}
+                        </option>
+                      );
+                    })}
+                  </Select>
+                </div>
+              </Timeline.Content>
+            </Timeline.Item>
+            {/* Content */}
             <Timeline.Item>
               <Timeline.Point />
               <Timeline.Content>
@@ -105,8 +171,8 @@ export default function Admin() {
 
                   <ReactQuill
                     theme="snow"
-                    value={value}
-                    onChange={setValue}
+                    value={content}
+                    onChange={setContent}
                     modules={modules}
                     formats={formats}
                   />

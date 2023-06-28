@@ -17,9 +17,22 @@ type Input = {
   name: string;
   register?: UseFormRegister<FieldValues>;
   onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  value?: string;
+  disabled?: boolean;
 };
 
 interface Image {
   bucketId: string;
   fileId: string;
 }
+
+type BlogList = {
+  slug: string;
+  content: string;
+  image?: URL;
+  category: string;
+  date: string;
+  title: string;
+  summary: string;
+};

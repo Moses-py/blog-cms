@@ -16,5 +16,12 @@ export const theme = {
       "2xl": "1400px",
     },
   },
+  fontFamily: {
+    sans: ["var(--plus_jakarta_sans)"],
+    serif: ["var(--cormorant_garamond)"],
+  },
+  colors: {
+    primary: "#6246EA",
+  },
 };
 export const plugins = [require("flowbite/plugin")];
