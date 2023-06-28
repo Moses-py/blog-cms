@@ -8,10 +8,7 @@ import { useEffect, useState } from "react";
 import { useEffectOnce } from "usehooks-ts";
 
 export const dynamicParams = false; // true | false,
-export async function generateStaticParams() {
-  const posts = await getSlugData();
-  return posts;
-}
+
 const SinglePost = ({ params }: { params: { slug: string } }) => {
   const [data, setData] = useState<BlogList>();
   const [blog_data, get_blog_data] = useBlogStore((state) => [
