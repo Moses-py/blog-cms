@@ -20,12 +20,16 @@ import formatDate from "@/lib/getCurrentDate";
 
 // Component imports
 import Input from "@/components/inputs/Input";
+import PaystackModal from "@/components/modal/PaystackModal";
+import { useBlogStore } from "@/store/Blogstrore";
 
 export default function Admin() {
   const [content, setContent] = useState("");
   const [file, setFile] = useState<File | undefined>();
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("Technology");
+
+  const [modal] = useBlogStore((state) => [state.modal]);
 
   const { register, handleSubmit } = useForm();
 
@@ -75,114 +79,117 @@ export default function Admin() {
   };
 
   return (
-    <section className="p-4 font-sans">
-      <form onSubmit={handleSubmit(submitData)}>
-        <div className="md:container">
-          <div className="flex justify-between items-center mt-5 mb-[3rem]">
-            <h1 className="divide-y text-2xl ">Add a blog content</h1>
-            <button
-              type="submit"
-              className="py-2 px-5 text-white bg-blue-600 hover:bg-blue-500 rounded-md"
-            >
-              {loading ? "Loading..." : "Save"}
-            </button>
-          </div>
+    <>
+      <section className="p-4 font-sans">
+        <form onSubmit={handleSubmit(submitData)}>
+          <div className="md:container">
+            <div className="flex justify-between items-center mt-5 mb-[3rem]">
+              <h1 className="divide-y text-2xl ">Add a blog content</h1>
+              <button
+                type="submit"
+                className="py-2 px-5 text-white bg-blue-600 hover:bg-blue-500 rounded-md"
+              >
+                {loading ? "Loading..." : "Save"}
+              </button>
+            </div>
 
-          <Timeline>
-            {form_data.map((data, index) => {
-              if (data.type === "file") {
-                return (
-                  <>
-                    <Input
-                      label={data.label}
-                      description={data.description}
-                      placeholder={data.placeholder}
-                      type={data.type}
-                      key={index + "a"}
-                      name={data.name}
-                      onchange={(e: any) => setFile(e.target.files[0])}
-                    />
-                  </>
-                );
-              } else {
-                return (
-                  <>
-                    <Input
-                      label={data.label}
-                      description={data.description}
-                      placeholder={data.placeholder}
-                      type={data.type}
-                      key={index + "f"}
-                      register={register}
-                      name={data.name}
-                      required={data.required}
-                    />
-                  </>
-                );
-              }
-            })}
-            <Timeline.Item>
-              <Timeline.Point />
-              <Timeline.Content>
-                <div className="max-w-full" id="select">
-                  <div className="mb-2 flex flex-col gap-3">
-                    <Label
-                      htmlFor="category"
-                      className="text-md font-sans font-normal"
-                      value="Choose a category"
-                    />
-                    <Label
-                      htmlFor="category_description"
+            <Timeline>
+              {form_data.map((data, index) => {
+                if (data.type === "file") {
+                  return (
+                    <>
+                      <Input
+                        label={data.label}
+                        description={data.description}
+                        placeholder={data.placeholder}
+                        type={data.type}
+                        key={index + "a"}
+                        name={data.name}
+                        onchange={(e: any) => setFile(e.target.files[0])}
+                      />
+                    </>
+                  );
+                } else {
+                  return (
+                    <>
+                      <Input
+                        label={data.label}
+                        description={data.description}
+                        placeholder={data.placeholder}
+                        type={data.type}
+                        key={index + "f"}
+                        register={register}
+                        name={data.name}
+                        required={data.required}
+                      />
+                    </>
+                  );
+                }
+              })}
+              <Timeline.Item>
+                <Timeline.Point />
+                <Timeline.Content>
+                  <div className="max-w-full" id="select">
+                    <div className="mb-2 flex flex-col gap-3">
+                      <Label
+                        htmlFor="category"
+                        className="text-md font-sans font-normal"
+                        value="Choose a category"
+                      />
+                      <Label
+                        htmlFor="category_description"
+                        className="text-xs text-gray-400 font-sans"
+                        value="What category does you post most aligns with?"
+                      />
+                    </div>
+                    <Select
+                      id="category"
+                      required
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                      className="rounded-none"
+                    >
+                      {blog_category.map((category, index) => {
+                        return (
+                          <option className="bg-white" key={index}>
+                            {category}
+                          </option>
+                        );
+                      })}
+                    </Select>
+                  </div>
+                </Timeline.Content>
+              </Timeline.Item>
+              {/* Content */}
+              <Timeline.Item>
+                <Timeline.Point />
+                <Timeline.Content>
+                  <div className="flex flex-col gap-3">
+                    <label htmlFor="" className="text-md font-sans">
+                      Content
+                    </label>
+                    <label
+                      htmlFor="label_description"
                       className="text-xs text-gray-400 font-sans"
-                      value="What category does you post most aligns with?"
+                    >
+                      Write your blog post!
+                    </label>
+
+                    <ReactQuill
+                      theme="snow"
+                      value={content}
+                      onChange={setContent}
+                      modules={modules}
+                      formats={formats}
                     />
                   </div>
-                  <Select
-                    id="category"
-                    required
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    className="rounded-none"
-                  >
-                    {blog_category.map((category, index) => {
-                      return (
-                        <option className="bg-white" key={index}>
-                          {category}
-                        </option>
-                      );
-                    })}
-                  </Select>
-                </div>
-              </Timeline.Content>
-            </Timeline.Item>
-            {/* Content */}
-            <Timeline.Item>
-              <Timeline.Point />
-              <Timeline.Content>
-                <div className="flex flex-col gap-3">
-                  <label htmlFor="" className="text-md font-sans">
-                    Content
-                  </label>
-                  <label
-                    htmlFor="label_description"
-                    className="text-xs text-gray-400 font-sans"
-                  >
-                    Write your blog post!
-                  </label>
-
-                  <ReactQuill
-                    theme="snow"
-                    value={content}
-                    onChange={setContent}
-                    modules={modules}
-                    formats={formats}
-                  />
-                </div>
-              </Timeline.Content>
-            </Timeline.Item>
-          </Timeline>
-        </div>
-      </form>
-    </section>
+                </Timeline.Content>
+              </Timeline.Item>
+            </Timeline>
+          </div>
+        </form>
+      </section>
+      {modal && <PaystackModal />}
+    </>
   );
 }

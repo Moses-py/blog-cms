@@ -2,7 +2,7 @@
 import ArtCard from "@/components/article_card/ArtCard";
 import CatCard from "@/components/category_card/CatCard";
 import Loader from "@/components/loaders/Loader";
-import { getBlogData } from "@/lib/getBlogData";
+import PaystackModal from "@/components/modal/PaystackModal";
 import { category_listing } from "@/mocks/mocks";
 import { useBlogStore } from "@/store/Blogstrore";
 import { useState, useEffect } from "react";
@@ -12,9 +12,10 @@ export const dynamicParams = false; // true | false,
 
 const CategoryList = ({ params }: { params: { slug: string } }) => {
   const [data, setData] = useState<BlogList[]>();
-  const [blog_data, get_blog_data] = useBlogStore((state) => [
+  const [blog_data, get_blog_data, modal] = useBlogStore((state) => [
     state.blog_data,
     state.get_blog_data,
+    state.modal,
   ]);
 
   useEffectOnce(() => {
@@ -95,6 +96,7 @@ const CategoryList = ({ params }: { params: { slug: string } }) => {
           </div>
         </section>
       </section>
+      {modal && <PaystackModal />}
     </>
   );
 };

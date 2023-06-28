@@ -4,9 +4,9 @@ import Category from "@/features/category_listing/Category";
 import RecentArticles from "@/features/recents/RecentArticles";
 import { useBlogStore } from "@/store/Blogstrore";
 import { useEffectOnce } from "usehooks-ts";
+import PaystackModal from "@/components/modal/PaystackModal";
 
 import Loader from "@/components/loaders/Loader";
-import PaystackModal from "@/components/modal/PaystackModal";
 
 export default function Home() {
   const [blog_data, get_blog_data, modal] = useBlogStore((state) => [
