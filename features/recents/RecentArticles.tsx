@@ -3,6 +3,7 @@ import ArtCard from "@/components/article_card/ArtCard";
 import Loader from "@/components/loaders/Loader";
 import { useBlogStore } from "@/store/Blogstrore";
 import React from "react";
+import Link from "next/link";
 
 const RecentArticles = () => {
   const [blog_data] = useBlogStore((state) => [state.blog_data]);
@@ -28,6 +29,7 @@ const RecentArticles = () => {
                         title={data.title}
                         summary={data.summary}
                         slug={data.slug}
+                        minutes={data.minutes}
                       />
                     );
                   })}
@@ -41,6 +43,13 @@ const RecentArticles = () => {
               </>
             )}
             {/* List of Articles */}
+          </div>
+          <div className="w-full grid place-items-center my-[3rem]">
+            <Link href="/blogs">
+              <button className="text-white font-sans text-[16px] px-[25px] py-[10px] bg-black hover:bg-gray-800">
+                View all
+              </button>
+            </Link>
           </div>
         </div>
       </section>

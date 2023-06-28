@@ -98,7 +98,7 @@ export default function Admin() {
                       description={data.description}
                       placeholder={data.placeholder}
                       type={data.type}
-                      key={index}
+                      key={index + "a"}
                       name={data.name}
                       onchange={(e: any) => setFile(e.target.files[0])}
                     />
@@ -112,7 +112,7 @@ export default function Admin() {
                       description={data.description}
                       placeholder={data.placeholder}
                       type={data.type}
-                      key={index}
+                      key={index + "f"}
                       register={register}
                       name={data.name}
                       required={data.required}

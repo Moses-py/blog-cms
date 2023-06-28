@@ -2,7 +2,7 @@
 const Newsletter = () => {
   return (
     <>
-      <section className="bg-gray-200 w-full py-[6rem]">
+      <section className="bg-gray-200 w-full py-[6rem] mt-[3rem]">
         <div className="container md:grid place-items-center md:p-[3rem]">
           <div className="flex flex-col gap-[1rem] p-8 md:p-[3rem] bg-white text-center">
             <h1 className="font-sans text-3xl font-bold">

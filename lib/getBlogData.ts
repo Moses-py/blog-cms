@@ -15,6 +15,7 @@ export const getBlogData = async () => {
       category: docs.category,
       date: docs.date,
       summary: docs.summary,
+      minutes: docs.minutes,
     };
   });
 

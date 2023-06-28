@@ -1,3 +1,4 @@
+"use client";
 import Navbar from "@/features/navbar/Navbar";
 import "./globals.css";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
@@ -5,6 +6,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "@/components/footer/Footer";
 import Newsletter from "@/features/newsletter/Newsletter";
+import PaystackModal from "@/components/modal/PaystackModal";
+import { useBlogStore } from "@/store/Blogstrore";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -25,27 +28,32 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [modal] = useBlogStore((state) => [state.modal]);
   return (
     <html lang="en">
       <body
         className={`${plus_jakarta_sans.variable} font-sans ${cormorant_garamond.variable} font-serif`}
       >
-        <ToastContainer
-          position="top-center"
-          autoClose={500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
+        <div className="p-5">
+          <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+        </div>
+
         <Navbar />
         {children}
         <Newsletter />
         <Footer />
+        {modal && <PaystackModal />}
       </body>
     </html>
   );
