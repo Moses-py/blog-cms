@@ -26,7 +26,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [modal] = useBlogStore((state) => [state.modal]);
   return (
     <html lang="en">
       <body
