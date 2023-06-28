@@ -1,13 +1,17 @@
 "use client";
+
+import Link from "next/link";
+
 type Props = {
   image?: string;
   category: string;
   date: string;
   title: string;
   summary: string;
+  slug: string;
 };
 
-const ArtCard = ({ image, category, date, title, summary }: Props) => {
+const ArtCard = ({ image, category, date, title, summary, slug }: Props) => {
   return (
     <>
       <div className="px-5 py-8 bg-white flex flex-col gap-[1rem] font-sans h-full w-full border border-gray-200">
@@ -32,7 +36,7 @@ const ArtCard = ({ image, category, date, title, summary }: Props) => {
           </div>
           <div className="flex justify-between items-center">
             <button className="px-[10px] py-[8px] bg-black text-white">
-              Read more
+              <Link href={`/post/${slug}`}>Read more</Link>
             </button>
             <p className="text-gray-400 text-[12px]">{date}</p>
           </div>
