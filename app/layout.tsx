@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "@/components/footer/Footer";
 import Newsletter from "@/features/newsletter/Newsletter";
 import { useBlogStore } from "@/store/Blogstrore";
+import PaystackModal from "@/components/modal/PaystackModal";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [modal] = useBlogStore((state) => [state.modal]);
   return (
     <html lang="en">
       <body
@@ -50,6 +52,7 @@ export default function RootLayout({
         {children}
         <Newsletter />
         <Footer />
+        {modal && <PaystackModal />}
       </body>
     </html>
   );

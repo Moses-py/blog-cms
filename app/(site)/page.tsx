@@ -6,7 +6,6 @@ import { useBlogStore } from "@/store/Blogstrore";
 import { useEffectOnce } from "usehooks-ts";
 
 import Loader from "@/components/loaders/Loader";
-import PaystackModal from "@/components/modal/PaystackModal";
 
 export default function Home() {
   const [blog_data, get_blog_data, modal] = useBlogStore((state) => [
@@ -30,7 +29,6 @@ export default function Home() {
       )}
       <Category />
       <RecentArticles />
-      {modal && <PaystackModal />}
     </main>
   );
 }
