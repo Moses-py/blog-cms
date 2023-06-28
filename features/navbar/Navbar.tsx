@@ -1,10 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import { useBlogStore } from "@/store/Blogstrore";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 const Navbar = () => {
   const [openBar, setOpenBar] = useState(false);
+  const [openModal] = useBlogStore((state) => [state.openModal]);
   return (
     <>
       <nav className="p-5 divide-x divide-gray-300 font-sans">
@@ -35,17 +37,20 @@ const Navbar = () => {
               <Link href={"/"}>Home</Link>
             </li>
             <li>
-              <Link href={"/blogs"}>Categories</Link>
+              <Link href={"/blogs"}>All posts</Link>
             </li>
             <li>
-              <Link href={"/"}>About us</Link>
-            </li>
-            <li>
-              <Link href={"/"}>
-                <button className="bg-[#6246EA] px-[17px] py-[10px] flex gap-[10px] text-white rounded-md">
-                  Buy me a coffee
-                </button>
+              <Link href={"https://flai-r.vercel.app/"} target="__blank">
+                About us
               </Link>
+            </li>
+            <li>
+              <button
+                className="bg-[#6246EA] px-[17px] py-[10px] flex gap-[10px] text-white rounded-md"
+                onClick={openModal}
+              >
+                Buy me a coffee
+              </button>
             </li>
           </ul>
         </div>
@@ -102,24 +107,25 @@ const Navbar = () => {
               <li className="mb-1" onClick={() => setOpenBar(false)}>
                 <Link
                   className="block p-4 text-sm font-semibold text-gray-800 hover:bg-blue-50 hover:text-gray-800 rounded"
-                  href="/"
+                  href="https://flai-r.vercel.app/"
                 >
                   About Us
                 </Link>
               </li>
               <li className="mb-1" onClick={() => setOpenBar(false)}>
-                <Link href={"/"}>
-                  <button className="bg-[#6246EA] px-[17px] py-[10px] flex gap-[10px] text-sm text-white rounded-md">
-                    Buy me a coffee
-                  </button>
-                </Link>
+                <button
+                  className="bg-[#6246EA] px-[17px] py-[10px] flex gap-[10px] text-white rounded-md"
+                  onClick={openModal}
+                >
+                  Buy me a coffee
+                </button>
               </li>
             </ul>
           </div>
           <div className="mt-auto">
             <div className="pt-6">
               <div className="flex justify-between items-center gap-5">
-                <Link href="" target="__blank" className="">
+                <Link href={"https://github.com/moses-py/"} target="__blank">
                   <Image
                     src={"/icons/github.svg"}
                     alt="github_icon"
@@ -127,29 +133,26 @@ const Navbar = () => {
                     height={20}
                   />
                 </Link>
-                <Link href="" target="__blank">
-                  <Image
-                    src={"/icons/instagram.svg"}
-                    alt="instagram_icon"
-                    width={20}
-                    height={20}
-                  />
-                </Link>
+
                 <Link
-                  href="https://www.linkedin.com/in/moses-chukwunekwu-717304163/"
+                  href={
+                    "https://www.linkedin.com/in/moses-chukwunekwu-717304163/"
+                  }
                   target="__blank"
                 >
+                  {" "}
                   <Image
                     src={"/icons/linkedin.svg"}
-                    alt="linkedin_icon"
+                    alt="github_icon"
                     width={20}
                     height={20}
                   />
                 </Link>
-                <Link href="">
+                <Link href={"https://flai-r.vercel.app/"} target="__blank">
+                  {" "}
                   <Image
-                    src={"/icons/twitter.svg"}
-                    alt="twitter_icon"
+                    src={"/icons/globe.svg"}
+                    alt="globe_icon"
                     width={20}
                     height={20}
                   />

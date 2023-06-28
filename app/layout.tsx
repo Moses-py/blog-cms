@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "@/components/footer/Footer";
 import Newsletter from "@/features/newsletter/Newsletter";
+import { useBlogStore } from "@/store/Blogstrore";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -30,18 +31,21 @@ export default function RootLayout({
       <body
         className={`${plus_jakarta_sans.variable} font-sans ${cormorant_garamond.variable} font-serif`}
       >
-        <ToastContainer
-          position="top-center"
-          autoClose={500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
+        <div className="p-5">
+          <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+        </div>
+
         <Navbar />
         {children}
         <Newsletter />

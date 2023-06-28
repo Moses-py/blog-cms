@@ -7,6 +7,7 @@ type InputData = {
   cover?: File;
   content: string;
   title: string;
+  minutes: string;
 };
 
 type Input = {
@@ -35,4 +36,5 @@ type BlogList = {
   date: string;
   title: string;
   summary: string;
+  minutes: string;
 };

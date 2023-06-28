@@ -2,30 +2,51 @@
 import ArtCard from "@/components/article_card/ArtCard";
 import CatCard from "@/components/category_card/CatCard";
 import Loader from "@/components/loaders/Loader";
+import { getBlogData } from "@/lib/getBlogData";
 import { category_listing } from "@/mocks/mocks";
 import { useBlogStore } from "@/store/Blogstrore";
+import { useState, useEffect } from "react";
 import { useEffectOnce } from "usehooks-ts";
 
-const Blogs = () => {
+export const dynamicParams = false; // true | false,
+
+const CategoryList = ({ params }: { params: { slug: string } }) => {
+  const [data, setData] = useState<BlogList[]>();
   const [blog_data, get_blog_data] = useBlogStore((state) => [
     state.blog_data,
     state.get_blog_data,
   ]);
+
   useEffectOnce(() => {
     get_blog_data();
   });
+
+  useEffect(() => {
+    const { slug } = params;
+
+    const category_blog_data = blog_data.filter((data) => {
+      return data.category.toLowerCase() === slug.toLowerCase();
+    });
+
+    console.log(category_blog_data);
+    setData(category_blog_data);
+  }, [params, blog_data]);
+
   return (
     <>
       <section className="w-full" id="recents">
         <div className="md:container p-3">
           <h1 className="font-serif text-[28px] lg:text-[30px] xl:text-[32px] font-bold my-[2rem] leading-tight">
-            All Posts
+            {`${params.slug[0].toUpperCase()}${params.slug.slice(
+              1,
+              params.slug.length
+            )}`}
           </h1>
           <div className="grid w-full">
-            {blog_data.length > 0 ? (
+            {data?.length! > 0 ? (
               <>
                 <div className=" w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-[1rem]">
-                  {blog_data.map((data, index) => {
+                  {data?.map((data, index) => {
                     return (
                       <ArtCard
                         key={index}
@@ -48,6 +69,7 @@ const Blogs = () => {
                 </div>
               </>
             )}
+            {data?.length === 0 && <></>}
             {/* List of Articles */}
           </div>
         </div>
@@ -56,10 +78,12 @@ const Blogs = () => {
           className="container mx-auto my-[3rem] md:my-[8rem] px-5 w-full"
         >
           <h1 className="font-serif text-[28px] lg:text-[30px] xl:text-[32px] font-bold my-[2rem] leading-tight">
-            Explore categories
+            Explore other categories
           </h1>
           <div className="w-full flex gap-2 items-center overflow-x-auto overflow-y-hidden">
             {category_listing.map((category, index) => {
+              if (category.name.toLowerCase() === params.slug.toLowerCase())
+                return;
               return (
                 <CatCard
                   key={index}
@@ -75,4 +99,4 @@ const Blogs = () => {
   );
 };
 
-export default Blogs;
+export default CategoryList;

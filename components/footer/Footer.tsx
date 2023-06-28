@@ -23,30 +23,38 @@ const Footer = () => {
                 Blog created and maintained by Moses Chukwunekwu. 2023
               </p>
               <div className="flex gap-4">
-                <Image
-                  src={"/icons/github.svg"}
-                  alt="github_icon"
-                  width={20}
-                  height={20}
-                />
-                <Image
-                  src={"/icons/instagram.svg"}
-                  alt="github_icon"
-                  width={20}
-                  height={20}
-                />
-                <Image
-                  src={"/icons/linkedin.svg"}
-                  alt="github_icon"
-                  width={20}
-                  height={20}
-                />
-                <Image
-                  src={"/icons/twitter.svg"}
-                  alt="github_icon"
-                  width={20}
-                  height={20}
-                />
+                <Link href={"https://github.com/moses-py/"} target="__blank">
+                  <Image
+                    src={"/icons/github.svg"}
+                    alt="github_icon"
+                    width={20}
+                    height={20}
+                  />
+                </Link>
+
+                <Link
+                  href={
+                    "https://www.linkedin.com/in/moses-chukwunekwu-717304163/"
+                  }
+                  target="__blank"
+                >
+                  {" "}
+                  <Image
+                    src={"/icons/linkedin.svg"}
+                    alt="github_icon"
+                    width={20}
+                    height={20}
+                  />
+                </Link>
+                <Link href={"https://flai-r.vercel.app/"} target="__blank">
+                  {" "}
+                  <Image
+                    src={"/icons/globe.svg"}
+                    alt="globe_icon"
+                    width={20}
+                    height={20}
+                  />
+                </Link>
               </div>
             </div>
             <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-[3rem] lg:gap-[4rem] lg:text-right">
@@ -57,7 +65,10 @@ const Footer = () => {
                   {blog_category.map((category, index) => {
                     return (
                       <li key={index}>
-                        <Link href="" className="text-[16px] font-sans">
+                        <Link
+                          href={`/category/${category}`}
+                          className="text-[16px] font-sans"
+                        >
                           {category}
                         </Link>
                       </li>
@@ -101,27 +112,6 @@ const Footer = () => {
                       className="text-[16px] font-sans"
                     >
                       dantereus1@gmail.com
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              {/* Follow */}
-              <div className="flex flex-col gap-[1rem] ">
-                <h1 className="font-serif text-[24px] font-bold">Follow us</h1>
-                <ul className="flex flex-col gap-2">
-                  <li>
-                    <Link href="" className="text-[16px] font-sans">
-                      Linkedin
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="" className="text-[16px] font-sans">
-                      Instagram
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="" className="text-[16px] font-sans">
-                      Twitter
                     </Link>
                   </li>
                 </ul>

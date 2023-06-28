@@ -9,7 +9,7 @@ type Props = {
 const CatCard = ({ name, image }: Props) => {
   return (
     <>
-      <Link href="/categories">
+      <Link href={`/category/${name.toLowerCase()}`}>
         <div className="relative min-w-[185px] w-[185px] h-[185px] hover:h-[200px] hover:border-gray-200 hover:border hover:scale-y-105 transition-all ease-linear duration-300">
           <Image
             src={`/${image}.jpg`}

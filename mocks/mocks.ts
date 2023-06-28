@@ -26,6 +26,16 @@ export const form_data = [
     required: true,
   },
   {
+    label: "Minutes read",
+    description:
+      "How long would it take an average reader to consume this article",
+
+    placeholder: "e.g 5",
+    type: "text",
+    name: "minutes",
+    required: true,
+  },
+  {
     label: "Cover image",
     description: "Got a nice image for your post?",
     placeholder: "Select an image",

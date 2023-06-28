@@ -2,10 +2,12 @@
 "use client";
 import Image from "next/image";
 import Loader from "@/components/loaders/Loader";
-import { getSlugData } from "@/lib/getSlugData";
 import { useBlogStore } from "@/store/Blogstrore";
 import { useEffect, useState } from "react";
 import { useEffectOnce } from "usehooks-ts";
+import CatCard from "@/components/category_card/CatCard";
+import { category_listing } from "@/mocks/mocks";
+import Link from "next/link";
 
 export const dynamicParams = false; // true | false,
 
@@ -54,42 +56,54 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
                 <div className="flex justify-between flex-col lg:flex-row items-center my-[1rem]">
                   <div className="flex justify-evenly gap-5 my-[1rem]">
                     {/* Category */}
-                    <span className="text-gray-600 text-md">
-                      {data.category}
+                    <span className="text-primary text-md">
+                      <Link href={`/category/${data.category}`}>
+                        #{data.category}
+                      </Link>
                     </span>
+                    <span>|</span>
                     {/* Name */}
                     <span className="text-gray-600 text-md">
-                      Moses Chukwunekwu
+                      {data.minutes} minutes read
                     </span>
                     {/* Date */}
                   </div>
                   {/* Socials */}
                   <div className="flex gap-5 my-[1rem]">
                     <span className="text-gray-600 text-md">{data.date}</span>
-                    <Image
-                      src={"/icons/github.svg"}
-                      alt="github_icon"
-                      width={20}
-                      height={20}
-                    />
-                    <Image
-                      src={"/icons/instagram.svg"}
-                      alt="github_icon"
-                      width={20}
-                      height={20}
-                    />
-                    <Image
-                      src={"/icons/linkedin.svg"}
-                      alt="github_icon"
-                      width={20}
-                      height={20}
-                    />
-                    <Image
-                      src={"/icons/twitter.svg"}
-                      alt="github_icon"
-                      width={20}
-                      height={20}
-                    />
+                    <Link
+                      href={"https://github.com/moses-py/"}
+                      target="__blank"
+                    >
+                      <Image
+                        src={"/icons/github.svg"}
+                        alt="github_icon"
+                        width={20}
+                        height={20}
+                      />
+                    </Link>
+
+                    <Link
+                      href={
+                        "https://www.linkedin.com/in/moses-chukwunekwu-717304163/"
+                      }
+                      target="__blank"
+                    >
+                      <Image
+                        src={"/icons/linkedin.svg"}
+                        alt="github_icon"
+                        width={20}
+                        height={20}
+                      />
+                    </Link>
+                    <Link href={"https://flai-r.vercel.app/"} target="__blank">
+                      <Image
+                        src={"/icons/globe.svg"}
+                        alt="globe_icon"
+                        width={20}
+                        height={20}
+                      />
+                    </Link>
                   </div>
                 </div>
                 {/* hr */}
@@ -117,6 +131,26 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
           <Loader />
         </div>
       )}
+
+      <section
+        id="categories"
+        className="container mx-auto my-[3rem] md:my-[8rem] px-5 w-full"
+      >
+        <h1 className="font-serif text-[28px] lg:text-[30px] xl:text-[32px] font-bold my-[2rem] leading-tight">
+          Explore other categories
+        </h1>
+        <div className="w-full flex gap-2 items-center overflow-x-auto overflow-y-hidden">
+          {category_listing.map((category, index) => {
+            return (
+              <CatCard
+                key={index}
+                name={category.name}
+                image={category.image}
+              />
+            );
+          })}
+        </div>
+      </section>
     </>
   );
 };
