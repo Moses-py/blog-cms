@@ -43,3 +43,6 @@ This project is licensed under the [MIT License](LICENSE).
 - Appwrite documentation: [https://appwrite.io/docs](https://appwrite.io/docs)
 - Tailwind CSS documentation: [https://tailwindcss.com/docs](https://tailwindcss.com/docs)
 - React Quill documentation: [https://github.com/zenoamaro/react-quill](https://github.com/zenoamaro/react-quill)
+- Zustand documentation: [https://github.com/pmndrs/zustand](https://github.com/pmndrs/zustand)
+- Flowbite documentation: [https://flowbite.com](https://flowbite.com)
+- React Hook Form documentation: [https://react-hook-form.com](https://react-hook-form.com)

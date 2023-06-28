@@ -4,7 +4,8 @@
 import { Label, Select, Timeline } from "flowbite-react";
 import { useState } from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import { ID, database } from "@/appwrite";
 import { toast } from "react-toastify";
 
