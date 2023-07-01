@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/jodit/page.jsx"
+    "app/jodit/page.jsx",
+    "features/comments/components/CommentBox"
   ],
   "exclude": ["node_modules"]
 }

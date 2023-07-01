@@ -38,3 +38,20 @@ type BlogList = {
   summary: string;
   minutes: string;
 };
+
+type CommentProps = {
+  comments: Comment[];
+};
+
+type Comment = {
+  fileId: string;
+  author: string;
+  content: string;
+  replies: CommentReply[];
+};
+
+type CommentReply = {
+  author: string;
+  id: string;
+  content: string;
+};
