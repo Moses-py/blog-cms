@@ -5,7 +5,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "@/components/footer/Footer";
 import Newsletter from "@/features/newsletter/Newsletter";
-import { useBlogStore } from "@/store/Blogstrore";
 
 const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ["latin"],

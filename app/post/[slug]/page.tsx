@@ -38,16 +38,21 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
       {data ? (
         <>
           <section className="relative w-full h-full font-sans">
-            <div className="w-full relative h-[70dvh]">
-              {data?.image && (
+            {data?.image && (
+              <div className="w-full relative h-[70dvh]">
                 <img
                   src={data.image.href}
                   alt="article_image"
                   className="absolute inset-0 w-full h-full min-h-[400px] object-cover"
                 />
-              )}
-            </div>
-            <div className="bg-white md:container w-full h-full text-center mt-[-10rem] relative z-30">
+              </div>
+            )}
+
+            <div
+              className={`bg-white md:container w-full h-full text-center ${
+                data.image ? "mt-[-10rem]" : "mt-0"
+              }  relative z-30`}
+            >
               <div className="px-4 md:px-[6rem] py-[2rem]">
                 <div className="flex justify-center my-[2rem] text-center">
                   <h1 className="text-[30px] xl:text-[48px] font-bold leading-tight w-full sm:w-2/3 flex justify-center font-serif">
