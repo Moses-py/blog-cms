@@ -10,7 +10,7 @@ const CatCard = ({ name, image }: Props) => {
   return (
     <>
       <Link href={`/category/${name.toLowerCase()}`}>
-        <div className="relative min-w-[185px] w-[185px] h-[185px] hover:h-[200px] hover:border-gray-200 hover:border hover:scale-y-105 transition-all ease-linear duration-300">
+        <div className="relative grid place-items-center min-w-[185px] w-[185px] h-[185px] hover:h-[200px] hover:border-gray-200 hover:border hover:scale-105 transition-all ease-linear duration-150">
           <Image
             src={`/${image}.jpg`}
             alt={name}
@@ -18,10 +18,8 @@ const CatCard = ({ name, image }: Props) => {
             height={185}
             className="object-cover min-w-full w-full h-full absolute inset-0 z-10"
           />
-          <div className="absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] z-30">
-            <p className="font-bold font-serif text-white text-xl">
-              {name.toUpperCase()}
-            </p>
+          <div className="relative z-30">
+            <p className="font-bold font-sans text-white text-md">{name}</p>
           </div>
           <div className="absolute inset-0 bg-black opacity-30 z-20" />
         </div>
