@@ -66,7 +66,9 @@ const Navbar = () => {
                   flai-r
                 </h1>
                 <span>.</span>
-                <span className="text-primary font-bold text-sm">Blog</span>
+                <span className="text-primary font-bold text-sm font-sans">
+                  Blog
+                </span>
               </div>
             </Link>
             <button className="navbar-close" onClick={() => setOpenBar(false)}>

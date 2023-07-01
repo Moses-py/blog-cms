@@ -9,6 +9,8 @@ import CatCard from "@/components/category_card/CatCard";
 import { category_listing } from "@/mocks/mocks";
 import Link from "next/link";
 import PaystackModal from "@/components/modal/PaystackModal";
+import Comments from "@/features/comments/Comments";
+import { comments } from "@/mocks/comments";
 
 export const dynamicParams = false; // true | false,
 
@@ -33,6 +35,7 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
 
     setData(single_blog_data);
   }, [params, blog_data]);
+
   return (
     <>
       {data ? (
@@ -49,11 +52,11 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
             )}
 
             <div
-              className={`bg-white md:container w-full h-full text-center ${
+              className={`bg-white lg:container w-full h-full text-center ${
                 data.image ? "mt-[-10rem]" : "mt-0"
               }  relative z-30`}
             >
-              <div className="px-4 md:px-[6rem] py-[2rem]">
+              <div className="px-5 md:px-[6rem] py-[2rem]">
                 <div className="flex justify-center my-[2rem] text-center">
                   <h1 className="text-[30px] xl:text-[48px] font-bold leading-tight w-full sm:w-2/3 flex justify-center font-serif">
                     {data.title}
@@ -126,9 +129,16 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
                 <div className="flex justify-center">
                   <div
                     dangerouslySetInnerHTML={{ __html: data.content }}
-                    className="text-left text-[18px] p-3 w-full sm:w-2/3"
+                    className="text-left text-[18px] w-full lg:w-2/3"
                   />
                 </div>
+                {/* Comments */}
+                <section
+                  className="w-full flex justify-center
+                "
+                >
+                  <Comments comments={comments} />
+                </section>
               </div>
             </div>
           </section>
