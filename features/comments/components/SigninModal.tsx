@@ -18,7 +18,11 @@ const SigninModal = () => {
 
   function handleAuthSignIn() {
     setLoading(true);
-    create_user(`http://localhost:3000/${router}`);
+    const environent = process.env.NODE_ENV;
+    if (environent === "development")
+      create_user(`http://localhost:3000/${router}`);
+    if (environent === "production")
+      create_user(`https://blog-cms-bay.vercel.app/${router}`);
   }
   return (
     <>

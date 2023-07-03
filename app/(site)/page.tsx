@@ -7,7 +7,6 @@ import { useEffectOnce } from "usehooks-ts";
 import PaystackModal from "@/components/modal/PaystackModal";
 
 import Loader from "@/components/loaders/Loader";
-import { useEffect } from "react";
 
 export default function Home() {
   const [blog_data, get_blog_data, modal, get_user, user] = useBlogStore(
