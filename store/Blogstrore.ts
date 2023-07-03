@@ -62,9 +62,9 @@ export const useBlogStore = create<BlogStoreState>((set, get) => ({
     try {
       const user = get().user;
       if (user.id === undefined) {
-        await account.get().then((user) => {
-          if (user) {
-            const { name, $id } = user;
+        await account.get().then((userFound) => {
+          if (userFound) {
+            const { name, $id } = userFound;
             set({ user: { name, id: $id } });
           } else {
             return;
