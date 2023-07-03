@@ -150,7 +150,7 @@ const Navbar = () => {
             <ul className="font-sans">
               {user.name === undefined ? (
                 <li
-                  onClick={() => create_user("/")}
+                  onClick={handleSignIn}
                   className="flex gap-2 items-center cursor-pointer"
                 >
                   <PiUserThin className="text-3xl" />
