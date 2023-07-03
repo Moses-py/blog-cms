@@ -89,7 +89,7 @@ const CommentBox = ({ reply, author, content, id }: Props) => {
         className={`${
           reply
             ? "bg-gray-100 text-gray-800 rounded-xl py-3 px-5 float-right w-11/12 my-3"
-            : "bg-gray-100 text-gray-800 py-3 px-5 rounded-xl"
+            : "bg-gray-100 text-gray-800 py-3 px-5 rounded-xl w-full"
         }`}
       >
         {/* Details */}
@@ -107,8 +107,10 @@ const CommentBox = ({ reply, author, content, id }: Props) => {
             <span>16-04</span>
           </div>
           {/* Comment text */}
-          <div className="w-full break-words">
-            <p className=" font-[14px] font-sans text-left">{content}</p>
+          <div className="w-full max-w-full break-words">
+            <p className=" font-[14px] font-sans text-left break-words">
+              {content}
+            </p>
           </div>
           {/* Action buttons */}
           <div className="">
