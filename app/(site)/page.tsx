@@ -7,16 +7,26 @@ import { useEffectOnce } from "usehooks-ts";
 import PaystackModal from "@/components/modal/PaystackModal";
 
 import Loader from "@/components/loaders/Loader";
+import { useEffect } from "react";
 
 export default function Home() {
-  const [blog_data, get_blog_data, modal] = useBlogStore((state) => [
-    state.blog_data,
-    state.get_blog_data,
-    state.modal,
-  ]);
+  const [blog_data, get_blog_data, modal, get_user, user] = useBlogStore(
+    (state) => [
+      state.blog_data,
+      state.get_blog_data,
+      state.modal,
+      state.get_user,
+      state.user,
+    ]
+  );
   useEffectOnce(() => {
+    if (user.id === undefined) {
+      get_user();
+    }
+
     get_blog_data();
   });
+
   return (
     <main>
       {blog_data.length > 0 ? (

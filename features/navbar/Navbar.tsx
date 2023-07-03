@@ -1,15 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useBlogStore } from "@/store/Blogstrore";
+
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { PiUserThin } from "react-icons/pi";
+
 const Navbar = () => {
   const [openBar, setOpenBar] = useState(false);
-  const [openModal] = useBlogStore((state) => [state.openModal]);
+  const [openModal, user, create_user, logout_user] = useBlogStore((state) => [
+    state.openModal,
+    state.user,
+    state.create_user,
+    state.logout_user,
+  ]);
+
+  const [showSignOut, setShowSignout] = useState(false);
+
+  function handleSignout() {
+    setShowSignout(false);
+    logout_user;
+  }
+
   return (
     <>
-      <nav className="p-5 divide-x divide-gray-300 font-sans">
+      <nav className="px-5 py-8 divide-x divide-gray-300 font-sans">
         <div className="md:container flex justify-between items-center">
           <div className="">
             <h1 className="divide-x font-sans font-bold text-[#001858] text-3xl inline">
@@ -46,12 +62,48 @@ const Navbar = () => {
             </li>
             <li>
               <button
-                className="bg-[#6246EA] px-[17px] py-[10px] flex gap-[10px] text-white rounded-md"
+                className="flex gap-[10px] text-gray-800 text-sm font-semibold"
                 onClick={openModal}
               >
                 Buy me a coffee
               </button>
             </li>
+            {user.name === undefined ? (
+              <li
+                onClick={() => create_user("http://localhost:3000")}
+                className="flex gap-2 items-center cursor-pointer"
+              >
+                <PiUserThin className="text-3xl" />
+                <div className="flex flex-col">
+                  <span className="text-gray-800 font-sans text-xs">
+                    Guest (current)
+                  </span>
+                  <span className="text-gray-800 font-sans text-xs">
+                    Sign in/Sign up
+                  </span>
+                </div>
+              </li>
+            ) : (
+              <li className="flex items-center cursor-pointer text-gray-800 relative">
+                <PiUserThin className="text-3xl" />
+                <div className=" w-full">
+                  {showSignOut && (
+                    <button
+                      className="block text-gray-800 font-sans text-sm font-semibold px-[17px] py-[10px] border border-gray-300 rounded-md absolute top-[30px] z-50 bg-white w-full left-0"
+                      onClick={() => logout_user()}
+                    >
+                      Sign out
+                    </button>
+                  )}
+                  <span
+                    className="text-gray-800 font-sans text-sm font-semibold"
+                    onClick={() => setShowSignout(!showSignOut)}
+                  >
+                    {user.name && user.name}
+                  </span>
+                </div>
+              </li>
+            )}
           </ul>
         </div>
       </nav>
@@ -90,9 +142,45 @@ const Navbar = () => {
           </div>
           <div>
             <ul className="font-sans">
+              {user.name === undefined ? (
+                <li
+                  onClick={() => create_user("http://localhost:3000")}
+                  className="flex gap-2 items-center cursor-pointer"
+                >
+                  <PiUserThin className="text-3xl" />
+                  <div className="flex flex-col">
+                    <span className="text-gray-800 font-sans text-xs">
+                      Guest (current)
+                    </span>
+                    <span className="text-gray-800 font-sans text-xs">
+                      Sign in/Sign up
+                    </span>
+                  </div>
+                </li>
+              ) : (
+                <li className="flex items-center cursor-pointer text-gray-800 relative">
+                  <PiUserThin className="text-3xl" />
+                  <div className=" w-full">
+                    {showSignOut && (
+                      <button
+                        className="block text-gray-800 font-sans text-sm font-semibold px-[17px] py-[10px] border border-gray-300 rounded-md absolute top-[30px] z-50 bg-white w-full left-0"
+                        onClick={handleSignout}
+                      >
+                        Sign out
+                      </button>
+                    )}
+                    <span
+                      className="text-gray-800 font-sans text-sm font-semibold"
+                      onClick={() => setShowSignout(!showSignOut)}
+                    >
+                      {user.name}
+                    </span>
+                  </div>
+                </li>
+              )}
               <li className="mb-1" onClick={() => setOpenBar(false)}>
                 <Link
-                  className="block p-4 text-sm font-semibold text-gray-800 hover:bg-blue-50 hover:text-gray-800 rounded"
+                  className="block py-4 text-sm font-semibold text-gray-800 hover:bg-blue-50 hover:text-gray-800 rounded"
                   href="/"
                 >
                   Home
@@ -100,7 +188,7 @@ const Navbar = () => {
               </li>
               <li className="mb-1" onClick={() => setOpenBar(false)}>
                 <Link
-                  className="block p-4 text-sm font-semibold text-gray-800 hover:bg-blue-50 hover:text-gray-800 rounded"
+                  className="block py-4 text-sm font-semibold text-gray-800 hover:bg-blue-50 hover:text-gray-800 rounded"
                   href="/blogs"
                 >
                   Categories
@@ -108,15 +196,16 @@ const Navbar = () => {
               </li>
               <li className="mb-1" onClick={() => setOpenBar(false)}>
                 <Link
-                  className="block p-4 text-sm font-semibold text-gray-800 hover:bg-blue-50 hover:text-gray-800 rounded"
+                  className="block py-4 text-sm font-semibold text-gray-800 hover:bg-blue-50 hover:text-gray-800 rounded"
                   href="https://flai-r.vercel.app/"
                 >
                   About Us
                 </Link>
               </li>
-              <li className="mb-1" onClick={() => setOpenBar(false)}>
+
+              <li className="mb-1 py-4" onClick={() => setOpenBar(false)}>
                 <button
-                  className="bg-[#6246EA] px-[17px] py-[10px] flex gap-[10px] text-white rounded-md"
+                  className="flex gap-[10px] text-gray-800 text-sm font-semibold"
                   onClick={openModal}
                 >
                   Buy me a coffee

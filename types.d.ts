@@ -29,6 +29,7 @@ interface Image {
 }
 
 type BlogList = {
+  id: string;
   slug: string;
   content: string;
   image?: URL;
@@ -39,19 +40,21 @@ type BlogList = {
   minutes: string;
 };
 
-type CommentProps = {
-  comments: Comment[];
+type User = {
+  name: string | undefined;
+  id: string | undefined;
 };
 
-type Comment = {
-  fileId: string;
-  author: string;
-  content: string;
-  replies: CommentReply[];
-};
-
-type CommentReply = {
-  author: string;
+type BlogComment = {
   id: string;
+  fileId: string;
+  userId: string;
+  content: string;
+  author: string;
+  replies?: Reply[] | undefined;
+};
+
+type Reply = {
+  author: string;
   content: string;
 };
