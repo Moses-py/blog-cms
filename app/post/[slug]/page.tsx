@@ -10,19 +10,38 @@ import { category_listing } from "@/mocks/mocks";
 import Link from "next/link";
 import PaystackModal from "@/components/modal/PaystackModal";
 import Comments from "@/features/comments/Comments";
-import { comments } from "@/mocks/comments";
+import SigninModal from "@/features/comments/components/SigninModal";
 
 export const dynamicParams = false; // true | false,
 
 const SinglePost = ({ params }: { params: { slug: string } }) => {
   const [data, setData] = useState<BlogList>();
-  const [blog_data, get_blog_data, modal] = useBlogStore((state) => [
+  const [comments, setComments] = useState<BlogComment[]>();
+  const [
+    blog_data,
+    get_blog_data,
+    modal,
+    modalState,
+    get_user,
+    user,
+    getComments,
+    blogComments,
+  ] = useBlogStore((state) => [
     state.blog_data,
     state.get_blog_data,
     state.modal,
+    state.modalState,
+    state.get_user,
+    state.user,
+    state.getComments,
+    state.blogComments,
   ]);
   useEffectOnce(() => {
+    if (user.id === undefined) {
+      get_user();
+    }
     get_blog_data();
+    getComments();
   });
 
   useEffect(() => {
@@ -34,14 +53,21 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
     });
 
     setData(single_blog_data);
-  }, [params, blog_data]);
+    // Set Comments
+    const filter_comments = blogComments.filter((comment) => {
+      return comment.fileId === data?.id;
+    });
+
+    setComments(filter_comments);
+  }, [params, blog_data, blogComments, data?.id]);
 
   return (
     <>
       {data ? (
         <>
           <section className="relative w-full h-full font-sans">
-            {data?.image && (
+            {modalState && <SigninModal />}
+            {data.image && (
               <div className="w-full relative h-[70dvh]">
                 <img
                   src={data.image.href}
@@ -137,7 +163,7 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
                   className="w-full flex justify-center
                 "
                 >
-                  <Comments comments={comments} />
+                  <Comments comments={comments} id={data.id} />
                 </section>
               </div>
             </div>

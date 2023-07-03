@@ -5,24 +5,24 @@ export const comments = [
     content:
       "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit enim ipsa velit expedita officia alias vitae adipisci nostrum facere ipsam.",
     replies: [
-      {
-        id: "43747835snc",
-        author: "Michale hunch",
-        content:
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit enim ipsa velit expedita officia alias vitae adipisci nostrum facere ipsam.",
-      },
-      {
-        id: "43747835wnr",
-        author: "Michale hunch",
-        content:
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit enim ipsa velit expedita officia alias vitae adipisci nostrum facere ipsam.",
-      },
-      {
-        id: "43747835knlsdvc",
-        author: "Michale hunch",
-        content:
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit enim ipsa velit expedita officia alias vitae adipisci nostrum facere ipsam.",
-      },
+      // {
+      //   id: "43747835snc",
+      //   author: "Michale hunch",
+      //   content:
+      //     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit enim ipsa velit expedita officia alias vitae adipisci nostrum facere ipsam.",
+      // },
+      // {
+      //   id: "43747835wnr",
+      //   author: "Michale hunch",
+      //   content:
+      //     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit enim ipsa velit expedita officia alias vitae adipisci nostrum facere ipsam.",
+      // },
+      // {
+      //   id: "43747835knlsdvc",
+      //   author: "Michale hunch",
+      //   content:
+      //     "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit enim ipsa velit expedita officia alias vitae adipisci nostrum facere ipsam.",
+      // },
     ],
   },
   {

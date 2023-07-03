@@ -9,6 +9,7 @@ export const getBlogData = async () => {
       const { bucketId, fileId } = JSON.parse(docs.image);
       let image = getImage(bucketId, fileId);
       return {
+        id: docs.$id,
         slug: docs.slug,
         content: docs.content,
         title: docs.title,
@@ -20,6 +21,7 @@ export const getBlogData = async () => {
       };
     } else {
       return {
+        id: docs.$id,
         slug: docs.slug,
         content: docs.content,
         title: docs.title,

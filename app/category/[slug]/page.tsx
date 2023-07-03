@@ -12,13 +12,19 @@ export const dynamicParams = false; // true | false,
 
 const CategoryList = ({ params }: { params: { slug: string } }) => {
   const [data, setData] = useState<BlogList[]>();
-  const [blog_data, get_blog_data, modal] = useBlogStore((state) => [
-    state.blog_data,
-    state.get_blog_data,
-    state.modal,
-  ]);
-
+  const [blog_data, get_blog_data, modal, get_user, user] = useBlogStore(
+    (state) => [
+      state.blog_data,
+      state.get_blog_data,
+      state.modal,
+      state.get_user,
+      state.user,
+    ]
+  );
   useEffectOnce(() => {
+    if (user.id === undefined) {
+      get_user();
+    }
     get_blog_data();
   });
 
@@ -29,7 +35,6 @@ const CategoryList = ({ params }: { params: { slug: string } }) => {
       return data.category.toLowerCase() === slug.toLowerCase();
     });
 
-    console.log(category_blog_data);
     setData(category_blog_data);
   }, [params, blog_data]);
 

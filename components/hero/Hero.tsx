@@ -11,7 +11,7 @@ const Hero = () => {
 
   return (
     <>
-      <section className="w-full p-0 h-full font-sans mt-[1rem]">
+      <section className="w-full p-0 h-full font-sans">
         <div className="md:container md:mx-auto relative">
           {single_data.image && (
             // eslint-disable-next-line @next/next/no-img-element
