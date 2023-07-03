@@ -5,7 +5,7 @@ import { useBlogStore } from "@/store/Blogstrore";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PiUserThin } from "react-icons/pi";
 
 const Navbar = () => {
