@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import { getApiUrl } from "@/config";
 import { useBlogStore } from "@/store/Blogstrore";
 
 import Image from "next/image";
@@ -17,6 +18,11 @@ const Navbar = () => {
   ]);
 
   const [showSignOut, setShowSignout] = useState(false);
+
+  function handleSignIn() {
+    const url = getApiUrl();
+    create_user(`${url}`);
+  }
 
   function handleSignout() {
     setShowSignout(false);
@@ -70,7 +76,7 @@ const Navbar = () => {
             </li>
             {user.name === undefined ? (
               <li
-                onClick={() => create_user("http://localhost:3000")}
+                onClick={handleSignIn}
                 className="flex gap-2 items-center cursor-pointer"
               >
                 <PiUserThin className="text-3xl" />

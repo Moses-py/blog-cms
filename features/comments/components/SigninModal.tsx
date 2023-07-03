@@ -5,6 +5,7 @@ import { useState } from "react";
 import { GrClose } from "react-icons/gr";
 import { ClipLoader } from "react-spinners";
 import { usePathname } from "next/navigation";
+import { getApiUrl } from "@/config";
 
 const SigninModal = () => {
   const [toggleModal, create_user] = useBlogStore((state) => [
@@ -18,11 +19,8 @@ const SigninModal = () => {
 
   function handleAuthSignIn() {
     setLoading(true);
-    const environent = process.env.NODE_ENV;
-    if (environent === "development")
-      create_user(`http://localhost:3000/${router}`);
-    if (environent === "production")
-      create_user(`https://blog-cms-bay.vercel.app/${router}`);
+    const url = getApiUrl();
+    create_user(`${url}/${router}`);
   }
   return (
     <>
