@@ -1,0 +1,10 @@
+#nprogress .bar {
+  height: 0.3rem;
+  background: rgb(176, 21, 149);
+  background: linear-gradient(
+    270deg,
+    rgba(176, 21, 149, 1) 0%,
+    rgba(255, 86, 14, 1) 50%,
+    rgba(240, 245, 24, 1) 100%
+  );
+}

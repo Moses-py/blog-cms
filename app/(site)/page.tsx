@@ -9,21 +9,20 @@ import PaystackModal from "@/components/modal/PaystackModal";
 import Loader from "@/components/loaders/Loader";
 
 export default function Home() {
-  const [blog_data, get_blog_data, modal, get_user, user] = useBlogStore(
+  const [blog_data, get_blog_data, modal, get_user, getComments] = useBlogStore(
     (state) => [
       state.blog_data,
       state.get_blog_data,
       state.modal,
       state.get_user,
-      state.user,
+      state.getComments,
     ]
   );
-  useEffectOnce(() => {
-    if (user.id === undefined) {
-      get_user();
-    }
 
+  useEffectOnce(() => {
+    get_user();
     get_blog_data();
+    getComments();
   });
 
   return (

@@ -1,4 +1,4 @@
-import { account } from "@/appwrite";
+import { account, client } from "@/appwrite";
 import { getBlogComments } from "@/lib/getBlogComments";
 import { getBlogData } from "@/lib/getBlogData";
 import { toast } from "react-toastify";
@@ -18,13 +18,16 @@ interface BlogStoreState {
   toggleModal: () => void;
   blogComments: BlogComment[];
   getComments: () => void;
+  setComment: (comments: BlogComment) => void;
+  singleBlogData: BlogList;
+  setSingleBlogList: (slug: string) => void;
+  singleBlogComment: BlogComment[];
+  setSingleBlogComment: () => void;
+  createSingleBlogDocument: (comment: BlogComment) => void;
+  updateSingleBlogDocument: (replies: Reply[], id: string) => void;
 }
 export const useBlogStore = create<BlogStoreState>((set, get) => ({
-  blog_data: [],
-
   modal: false,
-
-  modalState: false,
 
   openModal: () => {
     set({ modal: true });
@@ -33,6 +36,9 @@ export const useBlogStore = create<BlogStoreState>((set, get) => ({
   closeModal: () => {
     set({ modal: false });
   },
+
+  // Blog data states
+  blog_data: [],
 
   get_blog_data: async () => {
     try {
@@ -53,6 +59,7 @@ export const useBlogStore = create<BlogStoreState>((set, get) => ({
     }
   },
 
+  // User auth state
   user: {
     name: undefined,
     id: undefined,
@@ -86,11 +93,15 @@ export const useBlogStore = create<BlogStoreState>((set, get) => ({
     });
   },
 
+  // Login modal state
+  modalState: false,
+
   toggleModal: () => {
     const modalState = get().modalState;
     set({ modalState: !modalState });
   },
 
+  // Comment state
   blogComments: [],
 
   getComments: async () => {
@@ -105,5 +116,53 @@ export const useBlogStore = create<BlogStoreState>((set, get) => ({
       return updatedComment;
     });
     set({ blogComments: fixed_comment });
+  },
+
+  setComment: async (comment: BlogComment) => {
+    const comments = get().blogComments;
+    set({ blogComments: [...comments, comment] });
+  },
+
+  // @ts-ignore
+  singleBlogData: {},
+
+  setSingleBlogList: (slug: string) => {
+    const list = get().blog_data;
+
+    const single_blog_data = list.find((data) => {
+      return data.slug === slug;
+    });
+
+    set({ singleBlogData: single_blog_data });
+  },
+
+  // Single blog comment create, update
+  singleBlogComment: [],
+
+  setSingleBlogComment: () => {
+    const commentList = get().blogComments;
+    const data = get().singleBlogData;
+    const filter_comments = commentList?.filter((comment) => {
+      return comment.fileId === data.id;
+    });
+
+    set({ singleBlogComment: filter_comments.reverse() });
+  },
+
+  createSingleBlogDocument: (comment: BlogComment) => {
+    const commentList = get().singleBlogComment;
+
+    set({ singleBlogComment: [comment, ...commentList] });
+  },
+
+  updateSingleBlogDocument: (replies: Reply[], id: string) => {
+    const commentList = get().singleBlogComment;
+    const comment_Arr = commentList.map((comment) =>
+      comment.id === id
+        ? { ...comment, replies: [...replies].reverse() }
+        : comment
+    );
+
+    set({ singleBlogComment: comment_Arr });
   },
 }));
