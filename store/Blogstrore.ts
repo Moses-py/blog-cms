@@ -104,20 +104,6 @@ export const useBlogStore = create<BlogStoreState>((set, get) => ({
   // Comment state
   blogComments: [],
 
-  getComments: async () => {
-    const comments = await getBlogComments();
-    const fixed_comment = comments?.map((comment) => {
-      const { replies } = comment;
-      const destring_reply = replies.map((reply: string) => {
-        return JSON.parse(reply);
-      });
-
-      const updatedComment = { ...comment, replies: destring_reply };
-      return updatedComment;
-    });
-    set({ blogComments: fixed_comment });
-  },
-
   setComment: async (comment: BlogComment) => {
     const comments = get().blogComments;
     set({ blogComments: [...comments, comment] });
@@ -126,14 +112,42 @@ export const useBlogStore = create<BlogStoreState>((set, get) => ({
   // @ts-ignore
   singleBlogData: {},
 
-  setSingleBlogList: (slug: string) => {
-    const list = get().blog_data;
+  setSingleBlogList: async (slug: string) => {
+    await getBlogData().then(async (list) => {
+      await getBlogComments().then(async (comments) => {
+        if (list) {
+          const blogDataWithResolvedImagePromises = await Promise.all(
+            list.map(async (blogItem) => ({
+              ...blogItem,
+              image: await blogItem.image,
+            }))
+          );
+          const single_blog_data = blogDataWithResolvedImagePromises?.find(
+            (data) => {
+              return data.slug === slug;
+            }
+          );
+          if (single_blog_data) {
+            const fixed_comment = comments?.map((comment) => {
+              const { replies } = comment;
+              const destring_reply = replies.map((reply: string) => {
+                return JSON.parse(reply);
+              });
 
-    const single_blog_data = list.find((data) => {
-      return data.slug === slug;
+              const updatedComment = { ...comment, replies: destring_reply };
+              return updatedComment;
+            });
+
+            const single_blog_comment = fixed_comment?.filter((comment) => {
+              return comment.fileId === single_blog_data.id;
+            });
+            set({ singleBlogComment: single_blog_comment });
+          }
+
+          set({ singleBlogData: single_blog_data });
+        }
+      });
     });
-
-    set({ singleBlogData: single_blog_data });
   },
 
   // Single blog comment create, update

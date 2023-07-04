@@ -25,6 +25,7 @@ const Comments = () => {
   };
 
   useEffect(() => {
+    console.log(singleBlogComment);
     const unsubscribe = client.subscribe(
       `databases.${process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID}.collections.${process.env.NEXT_PUBLIC_APPWRITE_COMMENT_COLLECTION_ID}.documents`,
       (response) => {
@@ -72,7 +73,12 @@ const Comments = () => {
     return () => {
       unsubscribe();
     };
-  }, [singleBlogComment, createSingleBlogDocument, updateSingleBlogDocument]);
+  }, [
+    singleBlogComment,
+    createSingleBlogDocument,
+    updateSingleBlogDocument,
+    singleBlogData,
+  ]);
 
   return (
     <>
@@ -97,7 +103,7 @@ const Comments = () => {
                       return (
                         <>
                           <div
-                            className="w-full relative flex flex-col rounded-xl max-h-[400px] my-4"
+                            className="w-full relative flex flex-col rounded-xl max-h-[400px] my-2"
                             key={index}
                           >
                             {/* Comment */}
@@ -110,9 +116,9 @@ const Comments = () => {
                               />
                             </div>
                             {/* reply */}
-                            <div className="relative my-4 max-h-[200px] overflow-auto px-2">
-                              {comment.replies &&
-                                comment?.replies!.map((reply, reply_index) => {
+                            {comment.replies && (
+                              <div className="relative my-2 max-h-[200px] overflow-auto px-2">
+                                {comment?.replies!.map((reply, reply_index) => {
                                   return (
                                     <CommentBox
                                       id={comment.id}
@@ -123,7 +129,8 @@ const Comments = () => {
                                     />
                                   );
                                 })}
-                            </div>
+                              </div>
+                            )}
                             {/* View replies */}
                           </div>
                         </>
