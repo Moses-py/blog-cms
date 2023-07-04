@@ -1,18 +1,78 @@
-import { Key, useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import CommentBox from "./components/CommentBox";
 import MessageBox from "./components/MessageBox";
+import { client } from "@/appwrite";
+import { useBlogStore } from "@/store/Blogstrore";
 
-interface CommentsInterface {
-  comments: any;
-  id: string;
-}
-const Comments: React.FC<CommentsInterface> = ({ comments, id }) => {
-  const [shortComments, setShortComments] = useState(comments!.slice(0, 3));
+const Comments = () => {
+  const [
+    singleBlogComment,
+    singleBlogData,
+    createSingleBlogDocument,
+    updateSingleBlogDocument,
+  ] = useBlogStore((state) => [
+    state.singleBlogComment,
+    state.singleBlogData,
+    state.createSingleBlogDocument,
+    state.updateSingleBlogDocument,
+  ]);
 
-  function showMoreComments() {
-    const moreComments = comments!.slice(0, shortComments.length + 3);
-    setShortComments(moreComments);
-  }
+  const [visibleItems, setVisibleItems] = useState(3);
+
+  const showMoreComments = () => {
+    setVisibleItems((prevVisibleItems) => prevVisibleItems + 3);
+  };
+
+  useEffect(() => {
+    const unsubscribe = client.subscribe(
+      `databases.${process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID}.collections.${process.env.NEXT_PUBLIC_APPWRITE_COMMENT_COLLECTION_ID}.documents`,
+      (response) => {
+        if (response.payload) {
+          if (
+            response.events.includes(
+              "databases.*.collections.*.documents.*.create"
+            )
+          ) {
+            //@ts-ignore
+            const { $id, fileId, userId, content, author, replies } =
+              response.payload;
+
+            const destring_reply = replies?.map((reply: string) => {
+              return JSON.parse(reply);
+            });
+
+            const updatedComment = {
+              id: $id,
+              fileId,
+              userId,
+              content,
+              author,
+              replies: destring_reply,
+            };
+            createSingleBlogDocument(updatedComment);
+          } else if (
+            response.events.includes(
+              "databases.*.collections.*.documents.*.update"
+            )
+          ) {
+            //@ts-ignore
+            const { $id, replies } = response.payload;
+
+            const destring_reply: Reply[] = replies?.map((reply: string) => {
+              return JSON.parse(reply);
+            });
+
+            updateSingleBlogDocument(destring_reply, $id);
+          }
+        }
+      }
+    );
+
+    return () => {
+      unsubscribe();
+    };
+  }, [singleBlogComment, createSingleBlogDocument, updateSingleBlogDocument]);
 
   return (
     <>
@@ -20,30 +80,26 @@ const Comments: React.FC<CommentsInterface> = ({ comments, id }) => {
         <div className="w-full grid place-items-center">
           <div className="lg:w-2/3 w-full ">
             <h2 className="text-gray-900 text-left my-5 text-[18px] lg:text-[24px] font-bold">
-              Discussions ({comments!.length})
+              Discussions ({singleBlogComment.length})
             </h2>
             <div>
-              <MessageBox fileId={id} />
+              <MessageBox fileId={singleBlogData.id} />
             </div>
             {/* Comments list */}
 
             <section className="mt-[3rem]">
               {/* Comment */}
-              {comments.length > 0 ? (
+              {singleBlogComment.length > 0 ? (
                 <>
-                  {shortComments.map(
-                    (
-                      comment: {
-                        author: any;
-                        content: any;
-                        replies: any;
-                        id: string;
-                      },
-                      index: Key | null | undefined
-                    ) => {
+                  {singleBlogComment
+                    .slice(0, visibleItems)
+                    .map((comment, index) => {
                       return (
                         <>
-                          <div className="w-full relative flex flex-col rounded-xl max-h-[400px] my-4">
+                          <div
+                            className="w-full relative flex flex-col rounded-xl max-h-[400px] my-4"
+                            key={index}
+                          >
                             {/* Comment */}
                             <div>
                               <CommentBox
@@ -51,16 +107,12 @@ const Comments: React.FC<CommentsInterface> = ({ comments, id }) => {
                                 reply={false}
                                 author={comment.author}
                                 content={comment.content}
-                                key={index}
                               />
                             </div>
                             {/* reply */}
                             <div className="relative my-4 max-h-[200px] overflow-auto px-2">
-                              {comment?.replies!.map(
-                                (
-                                  reply: { author: any; content: any },
-                                  reply_index: Key | null | undefined
-                                ) => {
+                              {comment.replies &&
+                                comment?.replies!.map((reply, reply_index) => {
                                   return (
                                     <CommentBox
                                       id={comment.id}
@@ -70,30 +122,30 @@ const Comments: React.FC<CommentsInterface> = ({ comments, id }) => {
                                       key={reply_index}
                                     />
                                   );
-                                }
-                              )}
+                                })}
                             </div>
                             {/* View replies */}
                           </div>
                         </>
                       );
-                    }
-                  )}
+                    })}
 
                   <div className="flex justify-between items-center">
                     <span
                       className="flex gap-1 items-center text-grey-800 text-sm cursor-pointer my-3"
                       onClick={showMoreComments}
                     >
-                      {shortComments.length === comments!.length
+                      {singleBlogComment.slice(0, visibleItems).length ===
+                      singleBlogComment.length
                         ? "No more comments"
                         : `View ${
-                            comments!.length - shortComments.length
-                          } comments`}
+                            singleBlogComment.length -
+                            singleBlogComment.slice(0, visibleItems).length
+                          } more comments`}
                     </span>
                     <span
                       className="flex gap-1 items-center text-grey-800 text-sm cursor-pointer my-3"
-                      onClick={() => setShortComments(comments!.slice(0, 1))}
+                      onClick={() => setVisibleItems(3)}
                     >
                       Hide
                     </span>

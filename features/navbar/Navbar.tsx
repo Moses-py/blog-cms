@@ -5,6 +5,7 @@ import { useBlogStore } from "@/store/Blogstrore";
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { PiUserThin } from "react-icons/pi";
 
@@ -19,9 +20,11 @@ const Navbar = () => {
 
   const [showSignOut, setShowSignout] = useState(false);
 
+  const router = usePathname();
+
   function handleSignIn() {
     const url = getApiUrl();
-    create_user(`${url}`);
+    create_user(`${url}/${router}`);
   }
 
   function handleSignout() {
@@ -54,7 +57,7 @@ const Navbar = () => {
               />
             </button>
           </div>
-          <ul className="hidden sm:flex justify-between items-center gap-6 text-[14px] font-semibold text-gray-600">
+          <ul className="hidden lg:flex justify-between items-center gap-6 text-[14px] font-semibold text-gray-600">
             <li>
               <Link href={"/"}>Home</Link>
             </li>

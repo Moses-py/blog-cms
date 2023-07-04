@@ -1,14 +1,12 @@
-import { account, database } from "@/appwrite";
+import { database } from "@/appwrite";
 import { useBlogStore } from "@/store/Blogstrore";
-import { ID } from "appwrite";
 import Image from "next/image";
 import { useState } from "react";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsReplyFill } from "react-icons/bs";
-import { GrView, GrClose } from "react-icons/gr";
+import { GrClose } from "react-icons/gr";
 import { ClipLoader } from "react-spinners";
-import { toast } from "react-toastify";
 
 type Props = {
   reply: boolean;
@@ -20,10 +18,11 @@ type Props = {
 const CommentBox = ({ reply, author, content, id }: Props) => {
   const [openReplyBox, setOpenReplyBox] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [user, toggleModal, blogComments] = useBlogStore((state) => [
+
+  const [user, toggleModal, singleBlogComment] = useBlogStore((state) => [
     state.user,
     state.toggleModal,
-    state.blogComments,
+    state.singleBlogComment,
   ]);
 
   const {
@@ -49,7 +48,7 @@ const CommentBox = ({ reply, author, content, id }: Props) => {
       // Set button loading state
       setLoading(true);
       // Retrieve comment document associated with the reply
-      const singleComment = blogComments.find((comment) => {
+      const singleComment = singleBlogComment.find((comment) => {
         return comment.id === id;
       });
       // structure database payload
@@ -75,7 +74,6 @@ const CommentBox = ({ reply, author, content, id }: Props) => {
         );
 
         if ($id) {
-          toast("Reply added");
           setLoading(false);
         }
       } catch (error) {
@@ -83,6 +81,7 @@ const CommentBox = ({ reply, author, content, id }: Props) => {
       }
     }
   };
+
   return (
     <>
       <div

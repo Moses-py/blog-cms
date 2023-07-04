@@ -8,21 +8,16 @@ import { useBlogStore } from "@/store/Blogstrore";
 import { useEffectOnce } from "usehooks-ts";
 
 const Blogs = () => {
-  const [blog_data, get_blog_data, modal, get_user, user] = useBlogStore(
+  const [blog_data, modal, get_user, getComments, get_blog_data] = useBlogStore(
     (state) => [
       state.blog_data,
-      state.get_blog_data,
       state.modal,
       state.get_user,
-      state.user,
+      state.getComments,
+      state.get_blog_data,
     ]
   );
-  useEffectOnce(() => {
-    if (user.id === undefined) {
-      get_user();
-    }
-    get_blog_data();
-  });
+
   return (
     <>
       <section className="w-full" id="recents">

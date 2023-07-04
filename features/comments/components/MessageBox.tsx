@@ -3,7 +3,6 @@
 import { ID, account, database } from "@/appwrite";
 import { useBlogStore } from "@/store/Blogstrore";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
@@ -29,6 +28,7 @@ const MessageBox = ({ fileId }: any) => {
   const handleCommentPost: SubmitHandler<FieldValues> = async (
     data: FieldValues
   ) => {
+    const session = account.getSession("current");
     if (user.id === undefined) {
       // Display login modal if user isn't signed in
       toggleModal();
@@ -61,7 +61,6 @@ const MessageBox = ({ fileId }: any) => {
         );
 
         if ($id) {
-          toast("Comment added");
           setLoading(false);
         }
       } catch (error) {

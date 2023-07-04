@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Image from "next/image";
@@ -15,62 +16,53 @@ import SigninModal from "@/features/comments/components/SigninModal";
 export const dynamicParams = false; // true | false,
 
 const SinglePost = ({ params }: { params: { slug: string } }) => {
-  const [data, setData] = useState<BlogList>();
-  const [comments, setComments] = useState<BlogComment[]>();
   const [
-    blog_data,
-    get_blog_data,
     modal,
     modalState,
     get_user,
-    user,
     getComments,
-    blogComments,
+    get_blog_data,
+    setSingleBlogList,
+    setSingleBlogComment,
+    singleBlogData,
   ] = useBlogStore((state) => [
-    state.blog_data,
-    state.get_blog_data,
     state.modal,
     state.modalState,
     state.get_user,
-    state.user,
     state.getComments,
-    state.blogComments,
+    state.get_blog_data,
+    state.setSingleBlogList,
+    state.setSingleBlogComment,
+    state.singleBlogData,
   ]);
+
   useEffectOnce(() => {
-    if (user.id === undefined) {
-      get_user();
-    }
+    get_user();
     get_blog_data();
     getComments();
-  });
 
-  useEffect(() => {
+    // return () => {};
+
     const { slug } = params;
     const split_slug = decodeURIComponent(slug);
+    // Set single blogList
+    setSingleBlogList(split_slug);
+    // Set single blog Comment list
+    setSingleBlogComment();
 
-    const single_blog_data = blog_data.find((data) => {
-      return data.slug === split_slug;
-    });
-
-    setData(single_blog_data);
-    // Set Comments
-    const filter_comments = blogComments.filter((comment) => {
-      return comment.fileId === data?.id;
-    });
-
-    setComments(filter_comments);
-  }, [params, blog_data, blogComments, data?.id]);
+    return () => {};
+  });
 
   return (
     <>
-      {data ? (
+      {singleBlogData ? (
         <>
           <section className="relative w-full h-full font-sans">
             {modalState && <SigninModal />}
-            {data.image && (
+            {singleBlogData?.image && (
               <div className="w-full relative h-[70dvh]">
                 <img
-                  src={data.image.href}
+                  src={singleBlogData?.image.href}
                   alt="article_image"
                   className="absolute inset-0 w-full h-full min-h-[400px] object-cover"
                 />
@@ -79,13 +71,13 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
 
             <div
               className={`bg-white lg:container w-full h-full text-center ${
-                data.image ? "mt-[-10rem]" : "mt-0"
+                singleBlogData?.image ? "mt-[-10rem]" : "mt-0"
               }  relative z-30`}
             >
               <div className="px-5 md:px-[6rem] py-[2rem]">
                 <div className="flex justify-center my-[2rem] text-center">
                   <h1 className="text-[30px] xl:text-[48px] font-bold leading-tight w-full sm:w-2/3 flex justify-center font-serif">
-                    {data.title}
+                    {singleBlogData?.title}
                   </h1>
                 </div>
 
@@ -93,20 +85,22 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
                   <div className="flex justify-evenly gap-5 my-[1rem]">
                     {/* Category */}
                     <span className="text-primary text-md">
-                      <Link href={`/category/${data.category}`}>
-                        #{data.category}
+                      <Link href={`/category/${singleBlogData.category}`}>
+                        #{singleBlogData.category}
                       </Link>
                     </span>
                     <span>|</span>
                     {/* Name */}
                     <span className="text-gray-600 text-md">
-                      {data.minutes} minutes read
+                      {singleBlogData.minutes} minutes read
                     </span>
                     {/* Date */}
                   </div>
                   {/* Socials */}
                   <div className="flex gap-5 my-[1rem]">
-                    <span className="text-gray-600 text-md">{data.date}</span>
+                    <span className="text-gray-600 text-md">
+                      {singleBlogData.date}
+                    </span>
                     <Link
                       href={"https://github.com/moses-py/"}
                       target="__blank"
@@ -148,13 +142,13 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
                 <div className="flex justify-center text-center my-[3rem] ">
                   <blockquote className="italic text-[18px] lg:text-[28px] w-full md:w-3/4 lg:w-1/2 font-extralight">
                     <span>&quot;</span>
-                    {data.summary}
+                    {singleBlogData.summary}
                     <span>&quot;</span>
                   </blockquote>
                 </div>
                 <div className="flex justify-center">
                   <div
-                    dangerouslySetInnerHTML={{ __html: data.content }}
+                    dangerouslySetInnerHTML={{ __html: singleBlogData.content }}
                     className="text-left text-[18px] w-full lg:w-2/3"
                   />
                 </div>
@@ -163,7 +157,7 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
                   className="w-full flex justify-center
                 "
                 >
-                  <Comments comments={comments} id={data.id} />
+                  <Comments />
                 </section>
               </div>
             </div>
