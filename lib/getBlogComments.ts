@@ -22,6 +22,8 @@ export const getBlogComments = async () => {
       userId: docs.userId,
       content: docs.content,
       author: docs.author,
+      time: docs.time,
+      date: docs.date,
       replies: docs.replies,
     };
   });

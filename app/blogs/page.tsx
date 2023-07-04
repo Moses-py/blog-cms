@@ -8,15 +8,17 @@ import { useBlogStore } from "@/store/Blogstrore";
 import { useEffectOnce } from "usehooks-ts";
 
 const Blogs = () => {
-  const [blog_data, modal, get_user, getComments, get_blog_data] = useBlogStore(
-    (state) => [
-      state.blog_data,
-      state.modal,
-      state.get_user,
-      state.getComments,
-      state.get_blog_data,
-    ]
-  );
+  const [blog_data, modal, get_user, get_blog_data] = useBlogStore((state) => [
+    state.blog_data,
+    state.modal,
+    state.get_user,
+    state.get_blog_data,
+  ]);
+
+  useEffectOnce(() => {
+    get_user();
+    get_blog_data();
+  });
 
   return (
     <>

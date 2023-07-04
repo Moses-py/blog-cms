@@ -12,15 +12,17 @@ export const dynamicParams = false; // true | false,
 
 const CategoryList = ({ params }: { params: { slug: string } }) => {
   const [data, setData] = useState<BlogList[]>();
-  const [blog_data, modal, get_user, getComments, get_blog_data] = useBlogStore(
-    (state) => [
-      state.blog_data,
-      state.modal,
-      state.get_user,
-      state.getComments,
-      state.get_blog_data,
-    ]
-  );
+  const [blog_data, modal, get_user, get_blog_data] = useBlogStore((state) => [
+    state.blog_data,
+    state.modal,
+    state.get_user,
+    state.get_blog_data,
+  ]);
+
+  useEffectOnce(() => {
+    get_user();
+    get_blog_data();
+  });
 
   useEffect(() => {
     const { slug } = params;

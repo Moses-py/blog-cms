@@ -21,3 +21,5 @@ function getCurrentTime(): string {
 
   return currentTime;
 }
+
+export default getCurrentTime;

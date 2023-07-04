@@ -51,10 +51,16 @@ type BlogComment = {
   userId: string;
   content: string;
   author: string;
+  time: string;
+  date: string;
+  likes?: number;
   replies?: Reply[] | undefined;
 };
 
 type Reply = {
   author: string;
   content: string;
+  time: string;
+  date: string;
+  likes?: number;
 };
