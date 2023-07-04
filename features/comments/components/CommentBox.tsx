@@ -1,4 +1,5 @@
 import { database } from "@/appwrite";
+import formatDate from "@/lib/getCurrentDate";
 import { useBlogStore } from "@/store/Blogstrore";
 import Image from "next/image";
 import { useState } from "react";
@@ -103,7 +104,7 @@ const CommentBox = ({ reply, author, content, id }: Props) => {
               className="rounded-full"
             />
             <p className="">{author}</p>
-            <span>16-04</span>
+            <span>{formatDate(new Date())}</span>
           </div>
           {/* Comment text */}
           <div className="w-full max-w-full break-words">

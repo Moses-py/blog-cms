@@ -25,6 +25,8 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
     setSingleBlogList,
     setSingleBlogComment,
     singleBlogData,
+    blog_data,
+    blogComments,
   ] = useBlogStore((state) => [
     state.modal,
     state.modalState,
@@ -34,28 +36,23 @@ const SinglePost = ({ params }: { params: { slug: string } }) => {
     state.setSingleBlogList,
     state.setSingleBlogComment,
     state.singleBlogData,
+    state.blog_data,
+    state.blogComments,
   ]);
 
   useEffectOnce(() => {
     get_user();
-    get_blog_data();
-    getComments();
-
-    // return () => {};
 
     const { slug } = params;
     const split_slug = decodeURIComponent(slug);
     // Set single blogList
     setSingleBlogList(split_slug);
     // Set single blog Comment list
-    setSingleBlogComment();
-
-    return () => {};
   });
 
   return (
     <>
-      {singleBlogData ? (
+      {singleBlogData.id ? (
         <>
           <section className="relative w-full h-full font-sans">
             {modalState && <SigninModal />}
