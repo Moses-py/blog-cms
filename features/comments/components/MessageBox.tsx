@@ -5,6 +5,8 @@ import { useBlogStore } from "@/store/Blogstrore";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
+import formatDate from "@/lib/getCurrentDate";
+import getCurrentTime from "@/lib/getCurrentTime";
 
 const MessageBox = ({ fileId }: any) => {
   const [loading, setLoading] = useState(false);
@@ -47,6 +49,8 @@ const MessageBox = ({ fileId }: any) => {
         userId: user.$id,
         fileId,
         author: user.name,
+        time: getCurrentTime(),
+        date: formatDate(new Date()),
         replies: [],
         content: data.content,
       };

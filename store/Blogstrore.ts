@@ -1,4 +1,4 @@
-import { account, client } from "@/appwrite";
+import { account } from "@/appwrite";
 import { getBlogComments } from "@/lib/getBlogComments";
 import { getBlogData } from "@/lib/getBlogData";
 import { toast } from "react-toastify";
@@ -18,7 +18,6 @@ interface BlogStoreState {
   toggleModal: () => void;
   blogComments: BlogComment[];
   getComments: () => void;
-  setComment: (comments: BlogComment) => void;
   singleBlogData: BlogList;
   setSingleBlogList: (slug: string) => void;
   singleBlogComment: BlogComment[];
@@ -103,11 +102,6 @@ export const useBlogStore = create<BlogStoreState>((set, get) => ({
 
   // Comment state
   blogComments: [],
-
-  setComment: async (comment: BlogComment) => {
-    const comments = get().blogComments;
-    set({ blogComments: [...comments, comment] });
-  },
 
   // @ts-ignore
   singleBlogData: {},

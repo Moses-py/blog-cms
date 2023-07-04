@@ -4,7 +4,6 @@
 import Image from "next/image";
 import Loader from "@/components/loaders/Loader";
 import { useBlogStore } from "@/store/Blogstrore";
-import { useEffect, useState } from "react";
 import { useEffectOnce } from "usehooks-ts";
 import CatCard from "@/components/category_card/CatCard";
 import { category_listing } from "@/mocks/mocks";
@@ -16,29 +15,14 @@ import SigninModal from "@/features/comments/components/SigninModal";
 export const dynamicParams = false; // true | false,
 
 const SinglePost = ({ params }: { params: { slug: string } }) => {
-  const [
-    modal,
-    modalState,
-    get_user,
-    getComments,
-    get_blog_data,
-    setSingleBlogList,
-    setSingleBlogComment,
-    singleBlogData,
-    blog_data,
-    blogComments,
-  ] = useBlogStore((state) => [
-    state.modal,
-    state.modalState,
-    state.get_user,
-    state.getComments,
-    state.get_blog_data,
-    state.setSingleBlogList,
-    state.setSingleBlogComment,
-    state.singleBlogData,
-    state.blog_data,
-    state.blogComments,
-  ]);
+  const [modal, modalState, get_user, setSingleBlogList, singleBlogData] =
+    useBlogStore((state) => [
+      state.modal,
+      state.modalState,
+      state.get_user,
+      state.setSingleBlogList,
+      state.singleBlogData,
+    ]);
 
   useEffectOnce(() => {
     get_user();

@@ -35,9 +35,25 @@ const Comments = () => {
               "databases.*.collections.*.documents.*.create"
             )
           ) {
-            //@ts-ignore
-            const { $id, fileId, userId, content, author, replies } =
-              response.payload;
+            // @ts-ignore
+            const {
+              // @ts-ignore
+              $id,
+              // @ts-ignore
+              fileId,
+              // @ts-ignore
+              userId,
+              // @ts-ignore
+              content,
+              // @ts-ignore
+              author,
+              // @ts-ignore
+              replies,
+              // @ts-ignore
+              time,
+              // @ts-ignore
+              date,
+            } = response.payload;
 
             const destring_reply = replies?.map((reply: string) => {
               return JSON.parse(reply);
@@ -49,6 +65,8 @@ const Comments = () => {
               userId,
               content,
               author,
+              time,
+              date,
               replies: destring_reply,
             };
             createSingleBlogDocument(updatedComment);
@@ -113,6 +131,9 @@ const Comments = () => {
                                 reply={false}
                                 author={comment.author}
                                 content={comment.content}
+                                time={comment.time}
+                                date={comment.date}
+                                replyCount={comment.replies?.length}
                               />
                             </div>
                             {/* reply */}
@@ -125,6 +146,8 @@ const Comments = () => {
                                       reply={true}
                                       author={reply.author}
                                       content={reply.content}
+                                      time={reply.time}
+                                      date={reply.date}
                                       key={reply_index}
                                     />
                                   );
