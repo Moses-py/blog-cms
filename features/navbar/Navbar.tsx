@@ -77,7 +77,7 @@ const Navbar = () => {
             <li>
               <Link
                 href="/buy_me_coffee"
-                className="flex gap-[10px] text-gray-800 text-sm font-semibold"
+                className="py-4 text-gray-800 text-sm font-semibold"
               >
                 Buy me a coffee
               </Link>
@@ -217,10 +217,10 @@ const Navbar = () => {
                 </Link>
               </li>
 
-              <li>
+              <li onClick={() => setOpenBar(false)}>
                 <Link
                   href="/buy_me_coffee"
-                  className="flex gap-[10px] text-gray-800 text-sm font-semibold"
+                  className="py-4 text-gray-800 text-sm font-semibold"
                 >
                   Buy me a coffee
                 </Link>
