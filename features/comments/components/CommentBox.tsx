@@ -140,11 +140,9 @@ const CommentBox = ({
           <div className="">
             <div className="text-xs flex gap-6 justify-between items-center">
               <span className="flex gap-1 items-center cursor-pointer">
-                {replyCount && replyCount > 0 && (
+                {replyCount && (
                   <>
-                    <>
-                      <AiOutlineHeart /> {replyCount} replies
-                    </>
+                    <AiOutlineHeart /> replies ({replyCount})
                   </>
                 )}
               </span>
