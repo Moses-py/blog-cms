@@ -1,11 +1,16 @@
 "use client";
-import Image from "next/image";
+import { ClipLoader, HashLoader } from "react-spinners";
 
 const Loader = () => {
   return (
     <>
-      <div className="container flex justify-center items-center h-[400px] bg-white">
-        <Image src="/loader.webp" alt="loader" width={150} height={150} />
+      <div className="container flex justify-center items-center h-[400px] bg-gray-100">
+        <HashLoader
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          color="#6246EA"
+        />
       </div>
     </>
   );
