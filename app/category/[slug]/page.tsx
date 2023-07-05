@@ -1,38 +1,35 @@
-"use client";
 import ArtCard from "@/components/article_card/ArtCard";
 import CatCard from "@/components/category_card/CatCard";
 import Loader from "@/components/loaders/Loader";
 import PaystackModal from "@/components/modal/PaystackModal";
+import { getBlogData } from "@/lib/getBlogData";
 import { category_listing } from "@/mocks/mocks";
-import { useBlogStore } from "@/store/Blogstrore";
-import { useState, useEffect } from "react";
-import { useEffectOnce } from "usehooks-ts";
 
 export const dynamicParams = false; // true | false,
 
-const CategoryList = ({ params }: { params: { slug: string } }) => {
-  const [data, setData] = useState<BlogList[]>();
-  const [blog_data, modal, get_user, get_blog_data] = useBlogStore((state) => [
-    state.blog_data,
-    state.modal,
-    state.get_user,
-    state.get_blog_data,
-  ]);
+export const metadata = {
+  title: "Flai-r | Categories",
+};
 
-  useEffectOnce(() => {
-    get_user();
-    get_blog_data();
-  });
+const CategoryList = async ({ params }: { params: { slug: string } }) => {
+  const data = await getBlogData().then(async (returnedData) => {
+    const blogDataWithResolvedImagePromises = await Promise.all(
+      returnedData!.map(async (blogItem) => ({
+        ...blogItem,
+        image: await blogItem.image,
+      }))
+    );
 
-  useEffect(() => {
     const { slug } = params;
 
-    const category_blog_data = blog_data.filter((data) => {
-      return data.category.toLowerCase() === slug.toLowerCase();
-    });
+    const category_blog_data = blogDataWithResolvedImagePromises.filter(
+      (data) => {
+        return data.category.toLowerCase() === slug.toLowerCase();
+      }
+    );
 
-    setData(category_blog_data);
-  }, [params, blog_data]);
+    return category_blog_data.reverse();
+  });
 
   return (
     <>
@@ -97,7 +94,6 @@ const CategoryList = ({ params }: { params: { slug: string } }) => {
           </div>
         </section>
       </section>
-      {modal && <PaystackModal />}
     </>
   );
 };

@@ -8,15 +8,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { PiUserThin } from "react-icons/pi";
+import { useEffectOnce } from "usehooks-ts";
 
 const Navbar = () => {
   const [openBar, setOpenBar] = useState(false);
-  const [openModal, user, create_user, logout_user] = useBlogStore((state) => [
-    state.openModal,
-    state.user,
-    state.create_user,
-    state.logout_user,
-  ]);
+  const [openModal, user, create_user, logout_user, get_user] = useBlogStore(
+    (state) => [
+      state.openModal,
+      state.user,
+      state.create_user,
+      state.logout_user,
+      state.get_user,
+    ]
+  );
 
   const [showSignOut, setShowSignout] = useState(false);
 
@@ -31,6 +35,10 @@ const Navbar = () => {
     setShowSignout(false);
     logout_user;
   }
+
+  useEffectOnce(() => {
+    get_user();
+  });
 
   return (
     <>

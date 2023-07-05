@@ -1,15 +1,12 @@
 "use client";
-import { ClipLoader } from "react-spinners";
+import Image from "next/image";
 
 const Loader = () => {
   return (
     <>
-      <ClipLoader
-        size={50}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-        color="#6246EA"
-      />
+      <div className="container flex justify-center items-center h-[400px] bg-white">
+        <Image src="/loader.webp" alt="loader" width={150} height={150} />
+      </div>
     </>
   );
 };

@@ -1,23 +1,22 @@
-"use client";
 import ArtCard from "@/components/article_card/ArtCard";
 import CatCard from "@/components/category_card/CatCard";
 import Loader from "@/components/loaders/Loader";
-import PaystackModal from "@/components/modal/PaystackModal";
+import { getBlogData } from "@/lib/getBlogData";
 import { category_listing } from "@/mocks/mocks";
-import { useBlogStore } from "@/store/Blogstrore";
-import { useEffectOnce } from "usehooks-ts";
 
-const Blogs = () => {
-  const [blog_data, modal, get_user, get_blog_data] = useBlogStore((state) => [
-    state.blog_data,
-    state.modal,
-    state.get_user,
-    state.get_blog_data,
-  ]);
+export const metadata = {
+  title: "Flai-r | blogs",
+};
+const Blogs = async () => {
+  const data = await getBlogData().then(async (returnedData) => {
+    const blogDataWithResolvedImagePromises = await Promise.all(
+      returnedData!.reverse().map(async (blogItem) => ({
+        ...blogItem,
+        image: await blogItem.image,
+      }))
+    );
 
-  useEffectOnce(() => {
-    get_user();
-    get_blog_data();
+    return blogDataWithResolvedImagePromises;
   });
 
   return (
@@ -28,10 +27,10 @@ const Blogs = () => {
             All Posts
           </h1>
           <div className="grid w-full">
-            {blog_data.length > 0 ? (
+            {data.length > 0 ? (
               <>
                 <div className=" w-full grid sm:grid-cols-2 lg:grid-cols-3 gap-[1rem]">
-                  {blog_data.map((data, index) => {
+                  {data.map((data, index) => {
                     return (
                       <ArtCard
                         key={index}
@@ -77,7 +76,6 @@ const Blogs = () => {
           </div>
         </section>
       </section>
-      {modal && <PaystackModal />}
     </>
   );
 };

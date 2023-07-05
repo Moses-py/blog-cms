@@ -24,6 +24,7 @@ interface BlogStoreState {
   setSingleBlogComment: () => void;
   createSingleBlogDocument: (comment: BlogComment) => void;
   updateSingleBlogDocument: (replies: Reply[], id: string) => void;
+  setComments: (slug: string) => void;
 }
 export const useBlogStore = create<BlogStoreState>((set, get) => ({
   modal: false,
@@ -108,39 +109,40 @@ export const useBlogStore = create<BlogStoreState>((set, get) => ({
 
   setSingleBlogList: async (slug: string) => {
     await getBlogData().then(async (list) => {
-      await getBlogComments().then(async (comments) => {
-        if (list) {
-          const blogDataWithResolvedImagePromises = await Promise.all(
-            list.map(async (blogItem) => ({
-              ...blogItem,
-              image: await blogItem.image,
-            }))
-          );
-          const single_blog_data = blogDataWithResolvedImagePromises?.find(
-            (data) => {
-              return data.slug === slug;
-            }
-          );
-          if (single_blog_data) {
-            const fixed_comment = comments?.map((comment) => {
-              const { replies } = comment;
-              const destring_reply = replies.map((reply: string) => {
-                return JSON.parse(reply);
-              });
-
-              const updatedComment = { ...comment, replies: destring_reply };
-              return updatedComment;
-            });
-
-            const single_blog_comment = fixed_comment?.filter((comment) => {
-              return comment.fileId === single_blog_data.id;
-            });
-            set({ singleBlogComment: single_blog_comment });
+      if (list) {
+        const blogDataWithResolvedImagePromises = await Promise.all(
+          list.map(async (blogItem) => ({
+            ...blogItem,
+            image: await blogItem.image,
+          }))
+        );
+        const single_blog_data = blogDataWithResolvedImagePromises?.find(
+          (data) => {
+            return data.slug === slug;
           }
+        );
 
-          set({ singleBlogData: single_blog_data });
-        }
+        set({ singleBlogData: single_blog_data });
+      }
+    });
+  },
+
+  setComments: async (slug: string) => {
+    await getBlogComments().then(async (comments) => {
+      const fixed_comment = comments?.map((comment) => {
+        const { replies } = comment;
+        const destring_reply = replies.map((reply: string) => {
+          return JSON.parse(reply);
+        });
+
+        const updatedComment = { ...comment, replies: destring_reply };
+        return updatedComment;
       });
+
+      const single_blog_comment = fixed_comment?.filter((comment) => {
+        return comment.fileId === slug;
+      });
+      set({ singleBlogComment: single_blog_comment });
     });
   },
 
