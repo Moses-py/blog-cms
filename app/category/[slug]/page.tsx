@@ -1,7 +1,6 @@
 import ArtCard from "@/components/article_card/ArtCard";
 import CatCard from "@/components/category_card/CatCard";
 import Loader from "@/components/loaders/Loader";
-import PaystackModal from "@/components/modal/PaystackModal";
 import { getBlogData } from "@/lib/getBlogData";
 import { category_listing } from "@/mocks/mocks";
 

@@ -12,15 +12,12 @@ import { useEffectOnce } from "usehooks-ts";
 
 const Navbar = () => {
   const [openBar, setOpenBar] = useState(false);
-  const [openModal, user, create_user, logout_user, get_user] = useBlogStore(
-    (state) => [
-      state.openModal,
-      state.user,
-      state.create_user,
-      state.logout_user,
-      state.get_user,
-    ]
-  );
+  const [user, create_user, logout_user, get_user] = useBlogStore((state) => [
+    state.user,
+    state.create_user,
+    state.logout_user,
+    state.get_user,
+  ]);
 
   const [showSignOut, setShowSignout] = useState(false);
 
@@ -78,12 +75,12 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <button
+              <Link
+                href="/buy_me_coffee"
                 className="flex gap-[10px] text-gray-800 text-sm font-semibold"
-                onClick={openModal}
               >
                 Buy me a coffee
-              </button>
+              </Link>
             </li>
             {user.name === undefined ? (
               <li
@@ -208,7 +205,7 @@ const Navbar = () => {
                   className="block py-4 text-sm font-semibold text-gray-800 hover:bg-blue-50 hover:text-gray-800 rounded"
                   href="/blogs"
                 >
-                  Categories
+                  All blogs
                 </Link>
               </li>
               <li className="mb-1" onClick={() => setOpenBar(false)}>
@@ -220,13 +217,13 @@ const Navbar = () => {
                 </Link>
               </li>
 
-              <li className="mb-1 py-4" onClick={() => setOpenBar(false)}>
-                <button
+              <li>
+                <Link
+                  href="/buy_me_coffee"
                   className="flex gap-[10px] text-gray-800 text-sm font-semibold"
-                  onClick={openModal}
                 >
                   Buy me a coffee
-                </button>
+                </Link>
               </li>
             </ul>
           </div>

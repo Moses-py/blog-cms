@@ -20,16 +20,12 @@ import formatDate from "@/lib/getCurrentDate";
 
 // Component imports
 import Input from "@/components/inputs/Input";
-import PaystackModal from "@/components/modal/PaystackModal";
-import { useBlogStore } from "@/store/Blogstrore";
 
 export default function Admin() {
   const [content, setContent] = useState("");
   const [file, setFile] = useState<File | undefined>();
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("Technology");
-
-  const [modal] = useBlogStore((state) => [state.modal]);
 
   const { register, handleSubmit } = useForm();
 
@@ -189,7 +185,6 @@ export default function Admin() {
           </div>
         </form>
       </section>
-      {modal && <PaystackModal />}
     </>
   );
 }

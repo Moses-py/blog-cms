@@ -20,14 +20,14 @@ export const theme = {
     sans: ["var(--plus_jakarta_sans)"],
     serif: ["var(--cormorant_garamond)"],
   },
-  colors: {
-    primary: "#6246EA",
-  },
 
   extend: {
     screens: {
       // exs: "375px",
       xs: "375px",
+    },
+    colors: {
+      primary: "#6246EA",
     },
   },
 };
