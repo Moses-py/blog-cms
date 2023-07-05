@@ -7,9 +7,6 @@ import { create } from "zustand";
 interface BlogStoreState {
   blog_data: BlogList[];
   get_blog_data: () => void;
-  modal: boolean;
-  closeModal: () => void;
-  openModal: () => void;
   user: User;
   get_user: () => void;
   create_user: (uri: string) => void;
@@ -27,16 +24,6 @@ interface BlogStoreState {
   setComments: (slug: string) => void;
 }
 export const useBlogStore = create<BlogStoreState>((set, get) => ({
-  modal: false,
-
-  openModal: () => {
-    set({ modal: true });
-  },
-
-  closeModal: () => {
-    set({ modal: false });
-  },
-
   // Blog data states
   blog_data: [],
 

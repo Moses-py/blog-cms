@@ -21,7 +21,6 @@ export default async function Home() {
       {data.length > 0 && <Hero blog_data={data} />}
       <Category />
       <RecentArticles blog_data={data} />
-      {/* {modal && <PaystackModal />} */}
     </main>
   );
 }

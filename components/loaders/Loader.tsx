@@ -1,5 +1,5 @@
 "use client";
-import { ClipLoader, HashLoader } from "react-spinners";
+import { HashLoader } from "react-spinners";
 
 const Loader = () => {
   return (
