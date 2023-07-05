@@ -1,10 +1,11 @@
-"use client";
-import { useBlogStore } from "@/store/Blogstrore";
 import Link from "next/link";
 
-const Hero = () => {
-  const [blog_data] = useBlogStore((state) => [state.blog_data]);
-  const filtered_blog_data = blog_data.filter((data) => {
+interface Props {
+  blog_data: BlogList[];
+}
+
+const Hero = ({ blog_data }: Props) => {
+  const filtered_blog_data = blog_data.reverse().filter((data) => {
     return data.image;
   });
   const single_data = filtered_blog_data[0];

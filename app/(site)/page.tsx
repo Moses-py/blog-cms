@@ -1,40 +1,27 @@
-"use client";
 import Hero from "@/components/hero/Hero";
 import Category from "@/features/category_listing/Category";
 import RecentArticles from "@/features/recents/RecentArticles";
-import { useBlogStore } from "@/store/Blogstrore";
-import { useEffectOnce } from "usehooks-ts";
-import PaystackModal from "@/components/modal/PaystackModal";
 
-import Loader from "@/components/loaders/Loader";
+import { getBlogData } from "@/lib/getBlogData";
 
-export default function Home() {
-  const [blog_data, get_blog_data, modal, get_user] = useBlogStore((state) => [
-    state.blog_data,
-    state.get_blog_data,
-    state.modal,
-    state.get_user,
-  ]);
+export default async function Home() {
+  const data = await getBlogData().then(async (returnedData) => {
+    const blogDataWithResolvedImagePromises = await Promise.all(
+      returnedData!.map(async (blogItem) => ({
+        ...blogItem,
+        image: await blogItem.image,
+      }))
+    );
 
-  useEffectOnce(() => {
-    get_user();
-    get_blog_data();
+    return blogDataWithResolvedImagePromises;
   });
 
   return (
     <main>
-      {blog_data.length > 0 ? (
-        <>
-          <Hero />
-        </>
-      ) : (
-        <div className="container flex justify-center items-center h-[400px] bg-gray-100">
-          <Loader />
-        </div>
-      )}
+      {data.length > 0 && <Hero blog_data={data} />}
       <Category />
-      <RecentArticles />
-      {modal && <PaystackModal />}
+      <RecentArticles blog_data={data} />
+      {/* {modal && <PaystackModal />} */}
     </main>
   );
 }

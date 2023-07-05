@@ -4,18 +4,28 @@ import CommentBox from "./components/CommentBox";
 import MessageBox from "./components/MessageBox";
 import { client } from "@/appwrite";
 import { useBlogStore } from "@/store/Blogstrore";
+import SigninModal from "./components/SigninModal";
 
-const Comments = () => {
+interface Props {
+  singleBlogId: string;
+}
+const Comments = ({ singleBlogId }: Props) => {
   const [
     singleBlogComment,
     singleBlogData,
     createSingleBlogDocument,
     updateSingleBlogDocument,
+    setComments,
+    modalState,
+    get_user,
   ] = useBlogStore((state) => [
     state.singleBlogComment,
     state.singleBlogData,
     state.createSingleBlogDocument,
     state.updateSingleBlogDocument,
+    state.setComments,
+    state.modalState,
+    state.get_user,
   ]);
 
   const [visibleItems, setVisibleItems] = useState(3);
@@ -25,7 +35,8 @@ const Comments = () => {
   };
 
   useEffect(() => {
-    console.log(singleBlogComment);
+    setComments(singleBlogId);
+    get_user();
     const unsubscribe = client.subscribe(
       `databases.${process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID}.collections.${process.env.NEXT_PUBLIC_APPWRITE_COMMENT_COLLECTION_ID}.documents`,
       (response) => {
@@ -96,10 +107,14 @@ const Comments = () => {
     createSingleBlogDocument,
     updateSingleBlogDocument,
     singleBlogData,
+    setComments,
+    singleBlogId,
+    get_user,
   ]);
 
   return (
     <>
+      {modalState && <SigninModal />}
       <section className="py-5 w-full">
         <div className="w-full grid place-items-center">
           <div className="lg:w-2/3 w-full ">
@@ -107,7 +122,7 @@ const Comments = () => {
               Discussions ({singleBlogComment.length})
             </h2>
             <div>
-              <MessageBox fileId={singleBlogData.id} />
+              <MessageBox fileId={singleBlogId} />
             </div>
             {/* Comments list */}
 

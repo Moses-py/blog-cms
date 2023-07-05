@@ -30,7 +30,6 @@ const MessageBox = ({ fileId }: any) => {
   const handleCommentPost: SubmitHandler<FieldValues> = async (
     data: FieldValues
   ) => {
-    const session = account.getSession("current");
     if (user.id === undefined) {
       // Display login modal if user isn't signed in
       toggleModal();

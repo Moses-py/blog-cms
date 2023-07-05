@@ -1,12 +1,13 @@
-"use client";
 import ArtCard from "@/components/article_card/ArtCard";
 import Loader from "@/components/loaders/Loader";
-import { useBlogStore } from "@/store/Blogstrore";
 import React from "react";
 import Link from "next/link";
 
-const RecentArticles = () => {
-  const [blog_data] = useBlogStore((state) => [state.blog_data]);
+interface Props {
+  blog_data: BlogList[];
+}
+
+const RecentArticles = ({ blog_data }: Props) => {
   const newest_articles = blog_data.slice(0, 6);
   return (
     <>
