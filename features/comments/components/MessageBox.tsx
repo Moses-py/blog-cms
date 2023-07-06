@@ -86,7 +86,7 @@ const MessageBox = ({ fileId }: any) => {
             {...register("content", { required: true })}
             className={`border-none placeholder:text-gray-500 py-5 w-full rounded-xl ring-transparent ring-0 outline-none focus:ring-transparent focus:ring-0 focus:outline-none`}
           />
-          <div className="flex justify-end items-end p-5 border-t border-t-gray-300 bg-gray-100">
+          <div className="flex justify-end items-end p-5 rounded-xl border-t border-t-gray-300 bg-gray-100">
             <button
               disabled={loading}
               className={`${

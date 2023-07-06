@@ -30,7 +30,8 @@
     ".next/types/**/*.ts",
     "app/jodit/page.jsx",
     "features/comments/components/CommentBox",
-    "pages/_app.js"
+    "pages/_app.js",
+    "components/editor/Editor.js"
   ],
   "exclude": ["node_modules"]
 }
