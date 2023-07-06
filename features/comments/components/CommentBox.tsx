@@ -73,7 +73,7 @@ const CommentBox = ({
         time: getCurrentTime(),
       };
       // Push payload into replies array of comment document
-      singleComment?.replies!.push(commentReply);
+      singleComment?.replies!.unshift(commentReply);
 
       // Loop through replies array in comment document and stringify each object
       const groupedComment = singleComment?.replies!.map((reply) => {

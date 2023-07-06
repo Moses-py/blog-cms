@@ -19,7 +19,7 @@ const SinglePost = async ({ params }: { params: { slug: string } }) => {
       );
       const { slug } = params;
       const split_slug = decodeURIComponent(slug);
-      const single_blog_data = blogDataWithResolvedImagePromises?.find(
+      const single_blog_data = blogDataWithResolvedImagePromises.find(
         (data) => {
           return data.slug === split_slug;
         }

@@ -13,13 +13,13 @@ import { toast } from "react-toastify";
 import "react-quill/dist/quill.snow.css";
 
 // Util imports
-import { formats, modules } from "@/lib/utils";
 import { blog_category, form_data } from "@/mocks/mocks";
 import { uploadImage } from "@/lib/uploadImage";
 import formatDate from "@/lib/getCurrentDate";
 
 // Component imports
 import Input from "@/components/inputs/Input";
+import { formats, modules } from "@/lib/utils";
 
 export default function Admin() {
   const [content, setContent] = useState("");

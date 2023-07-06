@@ -129,7 +129,7 @@ export const useBlogStore = create<BlogStoreState>((set, get) => ({
       const single_blog_comment = fixed_comment?.filter((comment) => {
         return comment.fileId === slug;
       });
-      set({ singleBlogComment: single_blog_comment });
+      set({ singleBlogComment: single_blog_comment?.reverse() });
     });
   },
 
@@ -155,9 +155,7 @@ export const useBlogStore = create<BlogStoreState>((set, get) => ({
   updateSingleBlogDocument: (replies: Reply[], id: string) => {
     const commentList = get().singleBlogComment;
     const comment_Arr = commentList.map((comment) =>
-      comment.id === id
-        ? { ...comment, replies: [...replies].reverse() }
-        : comment
+      comment.id === id ? { ...comment, replies: [...replies] } : comment
     );
 
     set({ singleBlogComment: comment_Arr });
