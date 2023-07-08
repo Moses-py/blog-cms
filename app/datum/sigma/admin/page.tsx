@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 
 // Style imports
 import "react-quill/dist/quill.snow.css";
+import "react-quill/dist/quill.bubble.css";
 
 // Util imports
 import { blog_category, form_data } from "@/mocks/mocks";
@@ -177,6 +178,7 @@ export default function Admin() {
                       onChange={setContent}
                       modules={modules}
                       formats={formats}
+                      className=" border-gray-300 h-[300px] rounded-lg"
                     />
                   </div>
                 </Timeline.Content>
