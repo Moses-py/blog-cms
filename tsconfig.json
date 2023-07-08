@@ -31,7 +31,12 @@
     "app/jodit/page.jsx",
     "features/comments/components/CommentBox",
     "pages/_app.js",
-    "components/editor/Editor.js"
+    "components/editor/Editor.js",
+    "lexical/plugins/AutoLinkPlugin.js",
+    "lexical/plugins/CodeHighlightPlugin.js",
+    "lexical/plugins/ListMaxIndentPluginLevel.js",
+    "lexical/plugins/ToolbarPlugin.js",
+    "lexical/Editor.jsx"
   ],
   "exclude": ["node_modules"]
 }
