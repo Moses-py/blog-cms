@@ -2,19 +2,10 @@ import Hero from "@/components/hero/Hero";
 import Category from "@/features/category_listing/Category";
 import RecentArticles from "@/features/recents/RecentArticles";
 
-import { getBlogData } from "@/lib/getBlogData";
+import getPromiseResolvedData from "@/lib/getPromiseResolvedData";
 
 export default async function Home() {
-  const data = await getBlogData().then(async (returnedData) => {
-    const blogDataWithResolvedImagePromises = await Promise.all(
-      returnedData!.map(async (blogItem) => ({
-        ...blogItem,
-        image: await blogItem.image,
-      }))
-    );
-
-    return blogDataWithResolvedImagePromises;
-  });
+  const data = await getPromiseResolvedData();
 
   return (
     <main>
@@ -24,3 +15,5 @@ export default async function Home() {
     </main>
   );
 }
+
+export const revalidate = 10;
