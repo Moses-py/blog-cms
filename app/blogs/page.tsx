@@ -81,4 +81,4 @@ const Blogs = async () => {
 };
 
 export default Blogs;
-export const revalidate = 0;
+export const revalidate = 3600;

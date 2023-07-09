@@ -16,4 +16,4 @@ export default async function Home() {
   );
 }
 
-export const revalidate = 0;
+export const revalidate = 3600;
