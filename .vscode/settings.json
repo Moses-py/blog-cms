@@ -1,8 +1,28 @@
 {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnPaste": false, // required 
-    "editor.formatOnType": false, // required
-    "editor.formatOnSave": true, // optional 
-    "editor.formatOnSaveMode": "file", // required to format on save
-    "files.autoSave": "onFocusChange" // optional but recommended
-  }
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": false, // required
+  "editor.formatOnType": false, // required
+  "editor.formatOnSave": true, // optional
+  "editor.formatOnSaveMode": "file", // required to format on save
+  "files.autoSave": "onFocusChange",
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#96a4f0",
+    "activityBar.background": "#96a4f0",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#df203e",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#15202b99",
+    "sash.hoverBorder": "#96a4f0",
+    "statusBar.background": "#6a7de9",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#3e56e2",
+    "statusBarItem.remoteBackground": "#6a7de9",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#6a7de9",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#6a7de999",
+    "titleBar.inactiveForeground": "#15202b99"
+  },
+  "peacock.color": "#6a7de9" // optional but recommended
+}
